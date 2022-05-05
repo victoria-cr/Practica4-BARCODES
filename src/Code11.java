@@ -81,9 +81,87 @@ public class Code11 {
         return resultat;
     }
 
-    // Decodifica amb Code11
+    // Descodifica amb Code11
     static String decode(String s) {
-        return "";
+        String codi = "";
+        String resultat = "";
+        for (int i = 0; i < s.length(); i++) {
+            char caracter = s.charAt(i);
+            if (caracter == ' ' && codi.equals("")) {
+                continue;
+            }
+
+            if (i == s.length()-1) {
+                codi += "0";
+            } else {
+                char seguentCaracter = s.charAt(i+1);
+                if (caracter == seguentCaracter) {
+                    codi += "1";
+                    i++;
+                } else {
+                    codi += "0";
+                }
+            }
+
+            if (codi.length() == 5) {
+                resultat += (codificarCaracter(codi));
+                codi = "";
+            }
+        }
+        return resultat;
+    }
+
+    private static String codificarCaracter(String codi) {
+        String resultat = "";
+        if (codi.equals("00110")) {
+            resultat += "*";
+        }
+
+        if (codi.equals("00001")) {
+            resultat += "0";
+        }
+
+        if (codi.equals("10001")) {
+            resultat += "1";
+        }
+
+        if (codi.equals("01001")) {
+            resultat += "2";
+        }
+
+        if (codi.equals("11000")) {
+            resultat += "3";
+        }
+
+        if (codi.equals("00101")) {
+            resultat += "4";
+        }
+
+        if (codi.equals("10100")) {
+            resultat += "5";
+        }
+
+        if (codi.equals("01100")) {
+            resultat += "6";
+        }
+
+        if (codi.equals("00011")) {
+            resultat += "7";
+        }
+
+        if (codi.equals("10010")) {
+            resultat += "8";
+        }
+
+        if (codi.equals("10000")) {
+            resultat += "9";
+        }
+
+        if (codi.equals("00100")) {
+            resultat += "-";
+        }
+
+        return resultat;
     }
 
     // Decodifica una imatge. La imatge ha d'estar en format "ppm"
