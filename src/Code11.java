@@ -10,7 +10,75 @@ public class Code11 {
 
     // Codifica un String amb Code11
     static String encode(String s) {
-        return "";
+        String resultat = "";
+        for (int i = 0; i < s.length(); i++) {
+            char caracter = s.charAt(i);
+
+            if (caracter == '*' && i == s.length()-1) {
+                resultat += "█ ██  █";
+                continue;
+            }
+
+            if (caracter == '*') {
+                resultat += "█ ██  █ ";
+                continue;
+            }
+
+            if (caracter == '0') {
+                resultat += "█ █ ██ ";
+                continue;
+            }
+
+            if (caracter == '1') {
+                resultat += "██ █ ██ ";
+                continue;
+            }
+
+            if (caracter == '2') {
+                resultat += "█  █ ██ ";
+                continue;
+            }
+
+            if (caracter == '3') {
+                resultat += "██  █ █ ";
+                continue;
+            }
+
+            if (caracter == '4') {
+                resultat += "█ ██ ██ ";
+                continue;
+            }
+
+            if (caracter == '5') {
+                resultat += "██ ██ █ ";
+                continue;
+            }
+
+            if (caracter == '6') {
+                resultat += "█  ██ █ ";
+                continue;
+            }
+
+            if (caracter == '7') {
+                resultat += "█ █  ██ ";
+                continue;
+            }
+
+            if (caracter == '8') {
+                resultat += "██ █  █ ";
+                continue;
+            }
+
+            if (caracter == '9') {
+                resultat += "██ █ █ ";
+                continue;
+            }
+
+            if (caracter == '-') {
+                resultat += "█ ██ █ ";
+            }
+        }
+        return resultat;
     }
 
     // Decodifica amb Code11
