@@ -85,7 +85,7 @@ public class Code11 {
     static String decode(String s) {
         String codi = "";
         String resultat = "";
-        for (int i = 0; i < s.length(); i++) {
+        /*for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
             if (caracter == ' ' && codi.equals("")) {
                 continue;
@@ -107,6 +107,26 @@ public class Code11 {
                 resultat += (codificarCaracter(codi));
                 codi = "";
             }
+        }*/
+
+        for (int i = 0; i < s.length();) {
+            char caracter = s.charAt(i);
+            int contador = 0;
+            char actual = caracter;
+            i++;
+            while (caracter == actual) {
+                actual = s.charAt(i);
+                i++;
+                contador++;
+            }
+            i--;
+
+            System.out.println(contador);
+
+
+
+
+            //Fer una llista i guardar el contador.
         }
         return resultat;
     }
