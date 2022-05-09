@@ -6,6 +6,10 @@
 //     https://www.free-barcode-generator.net/code-11/
 //     https://products.aspose.app/barcode/generate
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Code11 {
 
     // Codifica un String amb Code11
@@ -85,50 +89,52 @@ public class Code11 {
     static String decode(String s) {
         String codi = "";
         String resultat = "";
-        /*for (int i = 0; i < s.length(); i++) {
-            char caracter = s.charAt(i);
-            if (caracter == ' ' && codi.equals("")) {
-                continue;
+
+        List<Integer> grossors = calculGrossors(s);
+        System.out.println(grossors);
+        int major = Collections.max(grossors);
+        System.out.println(major);
+
+        for (int i = 0; i < grossors.size(); i++) {
+            if (grossors.get(i) == major) {
+                codi += "1";
+            } else {
+                codi += "0";
             }
 
-            if (i == s.length()-1) {
-                codi += "0";
-            } else {
-                char seguentCaracter = s.charAt(i+1);
-                if (caracter == seguentCaracter) {
-                    codi += "1";
-                    i++;
-                } else {
-                    codi += "0";
-                }
-            }
+            System.out.println(codi);
 
             if (codi.length() == 5) {
                 resultat += (codificarCaracter(codi));
                 codi = "";
+                i++;
             }
-        }*/
+        }
 
+        return resultat;
+    }
+
+    private static List<Integer> calculGrossors(String s) {
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < s.length();) {
             char caracter = s.charAt(i);
             int contador = 0;
             char actual = caracter;
-            i++;
-            while (caracter == actual) {
-                actual = s.charAt(i);
+            if (i == s.length()-1) {
+                contador = 1;
                 i++;
-                contador++;
+            } else {
+                i++;
+                while (caracter == actual && i < s.length()) {
+                    actual = s.charAt(i);
+                    i++;
+                    contador++;
+                }
+                i--;
             }
-            i--;
-
-            System.out.println(contador);
-
-
-
-
-            //Fer una llista i guardar el contador.
+            list.add(contador);
         }
-        return resultat;
+        return list;
     }
 
     private static String codificarCaracter(String codi) {
