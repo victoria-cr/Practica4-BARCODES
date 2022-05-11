@@ -18,7 +18,7 @@ public class Code11Test {
     public void decodeTest1() {
         assertEquals("*0*", Code11.decode("█ ██  █ █ █ ██ █ ██  █"));
         assertEquals("*121-9087547*", Code11.decode("█ ██  █ ██ █ ██ █  █ ██ ██ █ ██ █ ██ █ ██ █ █ █ █ ██ ██ █  █ █ █  ██ ██ ██ █ █ ██ ██ █ █  ██ █ ██  █"));
-        //assertEquals("*0*", Code11.decode("  █ ██  █ █ █ ██ █ ██  █     "));
+        assertEquals("*0*", Code11.decode("  █ ██  █ █ █ ██ █ ██  █     "));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class Code11Test {
         assertEquals("*0*", Code11.decode("██ ███   █ █ █ ███ █ ███   █"));
 
         assertEquals("*0*", Code11.decode("███   █████     ███   ███   ███   █████   ███   █████     ███"));
-        //assertEquals("*0*", Code11.decode("███████       ██████████           ███████       ███████       ███████       ██████████       ███████       ██████████            ███████"));
+        assertEquals("*0*", Code11.decode("███████       ██████████           ███████       ███████       ███████       ██████████       ███████       ██████████            ███████"));
     }
 
     @Test

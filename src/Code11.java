@@ -6,6 +6,8 @@
 //     https://www.free-barcode-generator.net/code-11/
 //     https://products.aspose.app/barcode/generate
 
+import org.junit.Assert;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -87,31 +89,55 @@ public class Code11 {
 
     // Descodifica amb Code11
     static String decode(String s) {
-        String codi = "";
-        String resultat = "";
+        // Quitar espacios
+        s = s.trim();
 
         List<Integer> grossors = calculGrossors(s);
-        System.out.println(grossors);
         int major = Collections.max(grossors);
-        System.out.println(major);
 
+        while (major >= 1) {
+            String resultat = provarGrosores(grossors, major);
+            if (resultat != null) {
+                return resultat;
+            }
+            major--;
+        }
+
+        return null;
+    }
+
+    private static String provarGrosores(List<Integer> grossors, int major) {
+        int limit = major;
+        String codi = "";
+        String resultat = "";
         for (int i = 0; i < grossors.size(); i++) {
-            if (grossors.get(i) == major) {
+            if (grossors.get(i) >= limit) {
                 codi += "1";
             } else {
                 codi += "0";
             }
 
-            System.out.println(codi);
-
             if (codi.length() == 5) {
-                resultat += (codificarCaracter(codi));
+                codi = codificarCaracter(codi);
+                if (codi == null) {
+                    return null;
+                }
+                resultat += codi;
                 codi = "";
                 i++;
             }
         }
 
+        if (resultat.charAt(0) != '*') {
+            return null;
+        }
+
+        if (resultat.charAt(resultat.length()-1) != '*') {
+            return null;
+        }
+
         return resultat;
+
     }
 
     private static List<Integer> calculGrossors(String s) {
@@ -140,62 +166,62 @@ public class Code11 {
     private static String codificarCaracter(String codi) {
         String resultat = "";
         if (codi.equals("00110")) {
-            resultat += "*";
+            return "*";
         }
 
         if (codi.equals("00001")) {
-            resultat += "0";
+            return "0";
         }
 
         if (codi.equals("10001")) {
-            resultat += "1";
+            return "1";
         }
 
         if (codi.equals("01001")) {
-            resultat += "2";
+            return "2";
         }
 
         if (codi.equals("11000")) {
-            resultat += "3";
+            return "3";
         }
 
         if (codi.equals("00101")) {
-            resultat += "4";
+            return "4";
         }
 
         if (codi.equals("10100")) {
-            resultat += "5";
+            return "5";
         }
 
         if (codi.equals("01100")) {
-            resultat += "6";
+            return "6";
         }
 
         if (codi.equals("00011")) {
-            resultat += "7";
+            return "7";
         }
 
         if (codi.equals("10010")) {
-            resultat += "8";
+            return "8";
         }
 
         if (codi.equals("10000")) {
-            resultat += "9";
+            return "9";
         }
 
         if (codi.equals("00100")) {
-            resultat += "-";
+            return "-";
         }
 
-        return resultat;
+        return null;
     }
 
-    // Decodifica una imatge. La imatge ha d'estar en format "ppm"
+    // Descodifica una imatge. La imatge ha d'estar en format "ppm".
     public static String decodeImage(String str) {
         return "";
     }
 
-    // Genera imatge a partir de codi de barres
+    // Genera imatge a partir de codi de barres:
     // Alçada: 100px
     // Marges: vertical 4px, horizontal 8px
     public static String generateImage(String s) {
