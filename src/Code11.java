@@ -6,8 +6,6 @@
 //     https://www.free-barcode-generator.net/code-11/
 //     https://products.aspose.app/barcode/generate
 
-import org.junit.Assert;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -164,7 +162,6 @@ public class Code11 {
     }
 
     private static String codificarCaracter(String codi) {
-        String resultat = "";
         if (codi.equals("00110")) {
             return "*";
         }
@@ -218,7 +215,57 @@ public class Code11 {
 
     // Descodifica una imatge. La imatge ha d'estar en format "ppm".
     public static String decodeImage(String str) {
+        /*Hacer un array y guardar el String que nos pasan. (Separar por líneas)
+          Obtener primera línea de pixeles.
+          LLamar a decode.*/
+
+        //System.out.println(str);
+        String[] ar = str.split("\n");
+        String codiBN = obtenir1LiniaPixels(ar);
+
+
+
         return "";
+    }
+
+    private static String obtenir1LiniaPixels(String[] ar) {
+        /*Obtener la dimensión horizontal.
+          Leer tres líneas para un pixel:
+            Si los números son, por ejemplo, menores a 100 el color será blanco.if (esBlanc) { resultat += "B" } else { resultat += "N" }
+            Si los numeros son, por ejemplo, mayores a 100 el color será negro.*/
+
+        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+        int index = 4;
+        String resultat = "";
+        for (int i = 0; i < dimensioHoritzontal; i++) {
+            int a = Integer.parseInt(ar[index]);
+            index++;
+            int b = Integer.parseInt(ar[index]);
+            index++;
+            int c = Integer.parseInt(ar[index]);
+            index++;
+
+            if (esBlanc(a,b,c)) {
+                resultat += "B";
+            } else {
+                resultat += "N";
+            }
+        }
+        System.out.println(resultat);
+        return resultat;
+    }
+
+    private static boolean esBlanc(int a, int b, int c) {
+        if (a > 100 && b > 100 && c > 100) {
+            return true;
+        }
+        return false;
+    }
+
+    private static int treureDimensioHoritzontal(String[] ar) {
+        String dimensio = ar[2];
+        String[] arDimensio = dimensio.split(" ");
+        return Integer.parseInt(arDimensio[0]);
     }
 
     // Genera imatge a partir de codi de barres:
