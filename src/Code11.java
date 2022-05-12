@@ -222,17 +222,17 @@ public class Code11 {
         //System.out.println(str);
         String[] ar = str.split("\n");
         String codiBN = obtenir1LiniaPixels(ar);
+        String resultat = decode(codiBN);
+        System.out.println(resultat);
 
-
-
-        return "";
+        return resultat;
     }
 
     private static String obtenir1LiniaPixels(String[] ar) {
         /*Obtener la dimensión horizontal.
           Leer tres líneas para un pixel:
-            Si los números son, por ejemplo, menores a 100 el color será blanco.if (esBlanc) { resultat += "B" } else { resultat += "N" }
-            Si los numeros son, por ejemplo, mayores a 100 el color será negro.*/
+            Si los números son menores a 100 el color será blanco.
+            Si los numeros son mayores a 100 el color será negro.*/
 
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
         int index = 4;
@@ -246,12 +246,12 @@ public class Code11 {
             index++;
 
             if (esBlanc(a,b,c)) {
-                resultat += "B";
+                resultat += " ";
             } else {
-                resultat += "N";
+                resultat += "█";
             }
         }
-        System.out.println(resultat);
+        //System.out.println(resultat);
         return resultat;
     }
 
