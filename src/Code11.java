@@ -221,10 +221,10 @@ public class Code11 {
 
         //System.out.println(str);
         String[] ar = str.split("\n");
-        String codiBN = obtenir1LiniaPixels(ar);
-        String resultat = decode(codiBN);
-        System.out.println(resultat);
+        String codi = obtenir1LiniaPixels(ar);
+        String resultat = decode(codi);
 
+        System.out.println(resultat);
         return resultat;
     }
 
