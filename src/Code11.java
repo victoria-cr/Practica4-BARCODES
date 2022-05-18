@@ -91,6 +91,7 @@ public class Code11 {
         s = s.trim();
 
         List<Integer> grossors = calculGrossors(s);
+
         int major = Collections.max(grossors);
 
         while (major >= 1) {
@@ -221,12 +222,42 @@ public class Code11 {
 
         //System.out.println(str);
         String[] ar = str.split("\n");
-        String codi = obtenir1LiniaPixels(ar);
-        String resultat = decode(codi);
-
-        System.out.println(resultat);
+        //String codi = obtenir1LiniaPixels(ar);
+        int dimensioVertical = treureDimensioVertical(ar);
+        int nLinia = 0;
+        String resultat = "";
+        for (int i = 0; i < dimensioVertical; i++) {
+            String codi = obtenirLiniaPixelsN(ar, nLinia);
+            resultat = decode(codi);
+            if (resultat == null) {
+                nLinia++;
+            }
+        }
         return resultat;
     }
+
+    private static String obtenirLiniaPixelsN(String[] ar, int nLinea) {
+        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+        int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
+        int index = llegirLiniaN + 4;
+        String resultat = "";
+        for (int i = 0; i < dimensioHoritzontal; i++) {
+            int a = Integer.parseInt(ar[index]);
+            index++;
+            int b = Integer.parseInt(ar[index]);
+            index++;
+            int c = Integer.parseInt(ar[index]);
+            index++;
+
+            if (esBlanc(a,b,c)) {
+                resultat += " ";
+            } else {
+                resultat += "█";
+            }
+        }
+        return resultat;
+    }
+
 
     private static String obtenir1LiniaPixels(String[] ar) {
         /*Obtener la dimensión horizontal.
@@ -256,7 +287,7 @@ public class Code11 {
     }
 
     private static boolean esBlanc(int a, int b, int c) {
-        if (a > 100 && b > 100 && c > 100) {
+        if (a > 150 && b > 150 && c > 150) {
             return true;
         }
         return false;
@@ -266,6 +297,12 @@ public class Code11 {
         String dimensio = ar[2];
         String[] arDimensio = dimensio.split(" ");
         return Integer.parseInt(arDimensio[0]);
+    }
+
+    private static int treureDimensioVertical(String[] ar) {
+        String dimensio = ar[2];
+        String[] arDimensio = dimensio.split(" ");
+        return Integer.parseInt(arDimensio[1]);
     }
 
     // Genera imatge a partir de codi de barres:
