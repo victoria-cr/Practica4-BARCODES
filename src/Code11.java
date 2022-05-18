@@ -92,6 +92,10 @@ public class Code11 {
 
         List<Integer> grossors = calculGrossors(s);
 
+        if (grossors.size() == 0) {
+            return null;
+        }
+
         int major = Collections.max(grossors);
         int menor = Collections.min(grossors);
 
@@ -226,11 +230,11 @@ public class Code11 {
           LLamar a decode.*/
 
         String[] ar1 = str.split("\n");
-        List<String> list = new ArrayList<>(List.of(ar1));
-        if (list.get(1).charAt(0) != '#') {
-            list.add(1, "#");
+        List<String> llista = new ArrayList<>(List.of(ar1));
+        if (llista.get(1).charAt(0) != '#') {
+            llista.add(1, "#");
         }
-        String[] ar = list.toArray(new String[0]);
+        String[] ar = llista.toArray(new String[0]);
 
         int dimensioVertical = treureDimensioVertical(ar);
         int nLinia = 0;
