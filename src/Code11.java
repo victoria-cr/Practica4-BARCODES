@@ -229,18 +229,22 @@ public class Code11 {
         String[] ar = str.split("\n");
         int dimensioVertical = treureDimensioVertical(ar);
         int nLinia = 0;
+        int limitColor = 0;
         String resultat = "";
         for (int i = 0; i < dimensioVertical; i++) {
-            String codi = obtenirLiniaPixelsN(ar, nLinia);
+
+            String codi = obtenirLiniaPixelsN(ar, nLinia, limitColor);
             resultat = decode(codi);
             if (resultat == null) {
                 nLinia++;
+                limitColor++;
             }
+
         }
         return resultat;
     }
 
-    private static String obtenirLiniaPixelsN(String[] ar, int nLinea) {
+    private static String obtenirLiniaPixelsN(String[] ar, int nLinea, int limitColor) {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
         int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
         int index = llegirLiniaN + 4;
@@ -253,7 +257,7 @@ public class Code11 {
             int c = Integer.parseInt(ar[index]);
             index++;
 
-            if (esBlanc(a,b,c)) {
+            if (esBlanc(a,b,c, limitColor)) {
                 resultat += " ";
             } else {
                 resultat += "█";
@@ -262,36 +266,9 @@ public class Code11 {
         return resultat;
     }
 
-
-    //private static String obtenir1LiniaPixels(String[] ar) {
-        /*Obtener la dimensión horizontal.
-          Leer tres líneas para un pixel:
-            Si los números son menores a 100 el color será blanco.
-            Si los numeros son mayores a 100 el color será negro.*/
-
-        /*int dimensioHoritzontal = treureDimensioHoritzontal(ar);
-        int index = 4;
-        String resultat = "";
-        for (int i = 0; i < dimensioHoritzontal; i++) {
-            int a = Integer.parseInt(ar[index]);
-            index++;
-            int b = Integer.parseInt(ar[index]);
-            index++;
-            int c = Integer.parseInt(ar[index]);
-            index++;
-
-            if (esBlanc(a,b,c)) {
-                resultat += " ";
-            } else {
-                resultat += "█";
-            }
-        }
-        //System.out.println(resultat);
-        return resultat;
-    }*/
-
-    private static boolean esBlanc(int a, int b, int c) {
-        if (a > 150 && b > 150 && c > 150) {
+    private static boolean esBlanc(int a, int b, int c, int limitColor) {
+        int media = (a+b+c) / 3;
+        if (media > limitColor) {
             return true;
         }
         return false;
