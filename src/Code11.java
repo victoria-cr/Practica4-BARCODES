@@ -91,8 +91,14 @@ public class Code11 {
         s = s.trim();
 
         List<Integer> grossors = calculGrossors(s);
+        System.out.println(grossors);
 
         int major = Collections.max(grossors);
+        int menor = Collections.min(grossors);
+
+        if (menor * 15 < major) {
+            return null;
+        }
 
         while (major >= 1) {
             String resultat = provarGrosores(grossors, major);
@@ -220,9 +226,7 @@ public class Code11 {
           Obtener primera línea de pixeles.
           LLamar a decode.*/
 
-        //System.out.println(str);
         String[] ar = str.split("\n");
-        //String codi = obtenir1LiniaPixels(ar);
         int dimensioVertical = treureDimensioVertical(ar);
         int nLinia = 0;
         String resultat = "";
@@ -259,13 +263,13 @@ public class Code11 {
     }
 
 
-    private static String obtenir1LiniaPixels(String[] ar) {
+    //private static String obtenir1LiniaPixels(String[] ar) {
         /*Obtener la dimensión horizontal.
           Leer tres líneas para un pixel:
             Si los números son menores a 100 el color será blanco.
             Si los numeros son mayores a 100 el color será negro.*/
 
-        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+        /*int dimensioHoritzontal = treureDimensioHoritzontal(ar);
         int index = 4;
         String resultat = "";
         for (int i = 0; i < dimensioHoritzontal; i++) {
@@ -284,7 +288,7 @@ public class Code11 {
         }
         //System.out.println(resultat);
         return resultat;
-    }
+    }*/
 
     private static boolean esBlanc(int a, int b, int c) {
         if (a > 150 && b > 150 && c > 150) {
