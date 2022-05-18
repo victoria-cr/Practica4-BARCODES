@@ -91,7 +91,6 @@ public class Code11 {
         s = s.trim();
 
         List<Integer> grossors = calculGrossors(s);
-        System.out.println(grossors);
 
         int major = Collections.max(grossors);
         int menor = Collections.min(grossors);
@@ -226,22 +225,27 @@ public class Code11 {
           Obtener primera línea de pixeles.
           LLamar a decode.*/
 
-        String[] ar = str.split("\n");
+        String[] ar1 = str.split("\n");
+        List<String> list = new ArrayList<>(List.of(ar1));
+        if (list.get(1).charAt(0) != '#') {
+            list.add(1, "#");
+        }
+        String[] ar = list.toArray(new String[0]);
+
         int dimensioVertical = treureDimensioVertical(ar);
         int nLinia = 0;
-        int limitColor = 0;
         String resultat = "";
         for (int i = 0; i < dimensioVertical; i++) {
-
-            String codi = obtenirLiniaPixelsN(ar, nLinia, limitColor);
-            resultat = decode(codi);
-            if (resultat == null) {
+            for (int limitColor = 0; limitColor < 255; limitColor+=10) {
+                String codi = obtenirLiniaPixelsN(ar, nLinia, limitColor);
+                resultat = decode(codi);
+                if (resultat != null) {
+                    return resultat;
+                }
                 nLinia++;
-                limitColor++;
             }
-
         }
-        return resultat;
+        return null;
     }
 
     private static String obtenirLiniaPixelsN(String[] ar, int nLinea, int limitColor) {
