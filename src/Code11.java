@@ -87,10 +87,10 @@ public class Code11 {
 
     // Descodifica amb Code11
     static String decode(String s) {
-        // Quitar espacios
+        // Quitar espais
         s = s.trim();
 
-        List<Integer> grossors = calculGrossors(s);
+        List<Integer> grossors = calcularGrossors(s);
 
         if (grossors.size() == 0) {
             return null;
@@ -104,7 +104,7 @@ public class Code11 {
         }
 
         while (major >= 1) {
-            String resultat = provarGrosores(grossors, major);
+            String resultat = provarGrossors(grossors, major);
             if (resultat != null) {
                 return resultat;
             }
@@ -114,7 +114,7 @@ public class Code11 {
         return null;
     }
 
-    private static String provarGrosores(List<Integer> grossors, int major) {
+    private static String provarGrossors(List<Integer> grossors, int major) {
         int limit = major;
         String codi = "";
         String resultat = "";
@@ -148,7 +148,7 @@ public class Code11 {
 
     }
 
-    private static List<Integer> calculGrossors(String s) {
+    private static List<Integer> calcularGrossors(String s) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < s.length();) {
             char caracter = s.charAt(i);
@@ -241,7 +241,7 @@ public class Code11 {
         String resultat = "";
         for (int i = 0; i < dimensioVertical; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor+=10) {
-                String codi = obtenirLiniaPixelsN(ar, nLinia, limitColor);
+                String codi = obtenirNLiniesDePixels(ar, nLinia, limitColor);
                 resultat = decode(codi);
                 if (resultat != null) {
                     return resultat;
@@ -252,7 +252,7 @@ public class Code11 {
         return null;
     }
 
-    private static String obtenirLiniaPixelsN(String[] ar, int nLinea, int limitColor) {
+    private static String obtenirNLiniesDePixels(String[] ar, int nLinea, int limitColor) {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
         int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
         int index = llegirLiniaN + 4;
@@ -275,23 +275,23 @@ public class Code11 {
     }
 
     private static boolean esBlanc(int a, int b, int c, int limitColor) {
-        int media = (a+b+c) / 3;
-        if (media > limitColor) {
+        int mitjana = (a+b+c) / 3;
+        if (mitjana > limitColor) {
             return true;
         }
         return false;
     }
 
     private static int treureDimensioHoritzontal(String[] ar) {
-        String dimensio = ar[2];
-        String[] arDimensio = dimensio.split(" ");
-        return Integer.parseInt(arDimensio[0]);
+        String dimensioHoritzontal = ar[2];
+        String[] arDimensioHoritzontal = dimensioHoritzontal.split(" ");
+        return Integer.parseInt(arDimensioHoritzontal[0]);
     }
 
     private static int treureDimensioVertical(String[] ar) {
-        String dimensio = ar[2];
-        String[] arDimensio = dimensio.split(" ");
-        return Integer.parseInt(arDimensio[1]);
+        String dimensioVertical = ar[2];
+        String[] arDimensioVertical = dimensioVertical.split(" ");
+        return Integer.parseInt(arDimensioVertical[1]);
     }
 
     // Genera imatge a partir de codi de barres:
