@@ -1,7 +1,7 @@
 // https://en.wikipedia.org/wiki/Code_93
 
 public class Code93 {
-    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%????*";
+    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
 
     static String[] grossors = new String[]{
             "131112",
@@ -59,9 +59,32 @@ public class Code93 {
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            cercarIndexCaracter(caracter, caracters);
-            System.out.println(cercarIndexCaracter(caracter, caracters));
+            int index = cercarIndexCaracter(caracter, caracters);
+            String g = grossors[index];
+            resultat += dibuixaGrossors(g);
         }
+        return resultat;
+    }
+
+    private static String dibuixaGrossors(String g) {
+        boolean linia = true;
+        String resultat = "";
+        for (int i = 0; i < g.length(); i++) {
+            int gruix = g.charAt(i) - '0';
+            if (linia) {
+                for (int j = 0; j < gruix; j++) {
+                    resultat += "█";
+                }
+            } else  {
+                for (int j = 0; j < gruix; j++) {
+                    resultat += " ";
+                }
+            }
+            linia = !linia;
+            System.out.println(gruix);
+
+        }
+        System.out.println(resultat);
         return resultat;
     }
 
