@@ -228,7 +228,6 @@ public class Code11 {
         /*Hacer un array y guardar el String que nos pasan. (Separar por líneas)
           Obtener primera línea de pixeles.
           LLamar a decode.*/
-
         String[] ar1 = str.split("\n");
         List<String> llista = new ArrayList<>(List.of(ar1));
         if (llista.get(1).charAt(0) != '#') {
