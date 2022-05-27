@@ -56,6 +56,12 @@ public class Code93 {
 
     // Codifica emprant Code93
     static String encode(String str) {
+
+        char d1 = calcularCK1(str);
+        char d2 = calcularCK2(str+d1);
+
+        str = "*" + str + d1 + d2 + "*";
+
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
@@ -64,6 +70,15 @@ public class Code93 {
             resultat += dibuixaGrossors(g);
         }
         return resultat;
+    }
+
+    private static char calcularCK2(String s) {
+
+        return 0;
+    }
+
+    private static char calcularCK1(String str) {
+        return 0;
     }
 
     private static String dibuixaGrossors(String g) {
