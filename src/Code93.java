@@ -73,12 +73,17 @@ public class Code93 {
     }
 
     private static char calcularCK2(String s) {
-
+        s = invertirString(s);
         return 0;
     }
 
     private static char calcularCK1(String str) {
+        str = invertirString(str);
         return 0;
+    }
+
+    private static String invertirString(String string) {
+        return "";
     }
 
     private static String dibuixaGrossors(String g) {
