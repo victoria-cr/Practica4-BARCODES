@@ -145,7 +145,6 @@ public class Code11 {
         }
 
         return resultat;
-
     }
 
     private static List<Integer> calcularGrossors(String s) {
@@ -236,8 +235,44 @@ public class Code11 {
         String[] ar = llista.toArray(new String[0]);
 
         int dimensioVertical = treureDimensioVertical(ar);
-        int nLinia = 0;
+        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+
+        String resultat = escanHoritzontal(ar, dimensioVertical);
+
+        if (resultat != null) {
+            return resultat;
+        }
+
+        resultat = escanVertical(ar, dimensioHoritzontal);
+
+        if (resultat != null) {
+            return resultat;
+        }
+
+        /*if (resultat != null) {
+            String[] arInvertit = invertirArray(ar);
+            resultat = escanHoritzontal(arInvertit, dimensioVertical);
+            return  resultat;
+        }*/
+
+        return null;
+    }
+
+    private static int treureDimensioVertical(String[] ar) {
+        String dimensioVertical = ar[2];
+        String[] arDimensioVertical = dimensioVertical.split(" ");
+        return Integer.parseInt(arDimensioVertical[1]);
+    }
+
+    private static int treureDimensioHoritzontal(String[] ar) {
+        String dimensioHoritzontal = ar[2];
+        String[] arDimensioHoritzontal = dimensioHoritzontal.split(" ");
+        return Integer.parseInt(arDimensioHoritzontal[0]);
+    }
+
+    private static String escanHoritzontal(String[] ar, int dimensioVertical) {
         String resultat = "";
+        int nLinia = 0;
         for (int i = 0; i < dimensioVertical; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor+=10) {
                 String codi = obtenirNLiniesDePixels(ar, nLinia, limitColor);
@@ -281,16 +316,55 @@ public class Code11 {
         return false;
     }
 
-    private static int treureDimensioHoritzontal(String[] ar) {
-        String dimensioHoritzontal = ar[2];
-        String[] arDimensioHoritzontal = dimensioHoritzontal.split(" ");
-        return Integer.parseInt(arDimensioHoritzontal[0]);
+    private static String escanVertical(String[] ar, int dimensioHoritzontal) {
+        String resultat = "";
+        int nLinia = 0;
+        for (int i = 0; i < dimensioHoritzontal; i++) {
+            for (int limitColor = 0; limitColor < 255; limitColor+=10) {
+                String codi = obtenirLiniaVerticalDePixels(ar, nLinia, limitColor);
+                resultat = decode(codi);
+                if (resultat != null) {
+                    return resultat;
+                }
+                nLinia++;
+            }
+        }
+        return null;
     }
 
-    private static int treureDimensioVertical(String[] ar) {
-        String dimensioVertical = ar[2];
-        String[] arDimensioVertical = dimensioVertical.split(" ");
-        return Integer.parseInt(arDimensioVertical[1]);
+    private static String obtenirLiniaVerticalDePixels(String[] ar, int nLinia, int limitColor) {
+        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+        int llegirLiniaN = 3 * nLinia;
+        int index = llegirLiniaN + 4;
+        String resultat = "";
+        for (int i = 0; i < dimensioHoritzontal; i++) {
+            int a = Integer.parseInt(ar[index]);
+            index++;
+            int b = Integer.parseInt(ar[index]);
+            index++;
+            int c = Integer.parseInt(ar[index]);
+            index++;
+
+            if (esBlanc(a,b,c, limitColor)) {
+                resultat += " ";
+            } else {
+                resultat += "█";
+            }
+
+            index = index + dimensioHoritzontal * 3 - 3;
+
+        }
+        return resultat;
+    }
+
+    private static String[] invertirArray(String[] ar) {
+        String aux;
+        for (int i = 0; i < ar.length / 2; i++) {
+            aux = ar[i];
+            ar[i] = ar[ar.length - 1 - i];
+            ar[ar.length - 1 - i] = aux;
+        }
+        return ar;
     }
 
     // Genera imatge a partir de codi de barres:
