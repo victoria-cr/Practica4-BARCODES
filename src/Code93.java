@@ -88,12 +88,11 @@ public class Code93 {
         StringBuilder sInvertit = new StringBuilder(s);
         s = sInvertit.reverse().toString();
         System.out.println(s);
-        String resultat = "";
+        char resultat = 0;
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
-            resultat = String.valueOf((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+            resultat = (char) ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
         }
-        caracters.indexOf(resultat);
         return 0;
     }
 
