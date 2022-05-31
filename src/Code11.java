@@ -249,12 +249,6 @@ public class Code11 {
             return resultat;
         }
 
-        /*if (resultat != null) {
-            String[] arInvertit = invertirArray(ar);
-            resultat = escanHoritzontal(arInvertit, dimensioVertical);
-            return  resultat;
-        }*/
-
         return null;
     }
 
@@ -355,16 +349,6 @@ public class Code11 {
 
         }
         return resultat;
-    }
-
-    private static String[] invertirArray(String[] ar) {
-        String aux;
-        for (int i = 0; i < ar.length / 2; i++) {
-            aux = ar[i];
-            ar[i] = ar[ar.length - 1 - i];
-            ar[ar.length - 1 - i] = aux;
-        }
-        return ar;
     }
 
     // Genera imatge a partir de codi de barres:

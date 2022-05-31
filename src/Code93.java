@@ -56,34 +56,45 @@ public class Code93 {
 
     // Codifica emprant Code93
     static String encode(String str) {
+        char ck1 = calcularCK1(str);
+        char ck2 = calcularCK2(str+ck1);
 
-        char d1 = calcularCK1(str);
-        char d2 = calcularCK2(str+d1);
-
-        str = "*" + str + d1 + d2 + "*";
+        str = "*" + str + ck1 + ck2 + "*";
 
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            int index = cercarIndexCaracter(caracter, caracters);
+            int index = cercarIndexDeCaracter(caracter, caracters);
             String g = grossors[index];
             resultat += dibuixaGrossors(g);
         }
         return resultat;
     }
 
-    private static char calcularCK2(String s) {
-        s = invertirString(s);
-        return 0;
-    }
-
     private static char calcularCK1(String str) {
-        str = invertirString(str);
+        StringBuilder strInvertit = new StringBuilder(str);
+        str = strInvertit.reverse().toString();
+        System.out.println(str);
+        char resultat = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char caracter = str.charAt(i);
+            resultat = (char) ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+        }
+        // passar de l'índex al caracter, cercar el caracter donant l'índex?
         return 0;
     }
 
-    private static String invertirString(String string) {
-        return "";
+    private static char calcularCK2(String s) {
+        StringBuilder sInvertit = new StringBuilder(s);
+        s = sInvertit.reverse().toString();
+        System.out.println(s);
+        String resultat = "";
+        for (int i = 0; i < s.length(); i++) {
+            char caracter = s.charAt(i);
+            resultat = String.valueOf((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+        }
+        caracters.indexOf(resultat);
+        return 0;
     }
 
     private static String dibuixaGrossors(String g) {
@@ -108,7 +119,7 @@ public class Code93 {
         return resultat;
     }
 
-    private static int cercarIndexCaracter(char caracter, String string) {
+    private static int cercarIndexDeCaracter(char caracter, String string) {
         for (int i = 0; i < string.length(); i++) {
             if (caracter == string.charAt(i)) {
                 return i;
