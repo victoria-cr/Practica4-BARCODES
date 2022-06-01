@@ -1,7 +1,7 @@
 // https://en.wikipedia.org/wiki/Code_93
 
 public class Code93 {
-    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
+    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
 
     static String[] grossors = new String[]{
             "131112",
@@ -47,10 +47,6 @@ public class Code93 {
             "112131",
             "113121",
             "211131",
-            "121221",
-            "312111",
-            "311121",
-            "122211",
             "111141"
     };
 
@@ -60,6 +56,7 @@ public class Code93 {
         char ck2 = calcularCK2(str+ck1);
 
         str = "*" + str + ck1 + ck2 + "*";
+        System.out.println(str);
 
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
@@ -68,32 +65,33 @@ public class Code93 {
             String g = grossors[index];
             resultat += dibuixaGrossors(g);
         }
-        return resultat;
+        return resultat + "█";
     }
 
     private static char calcularCK1(String str) {
         StringBuilder strInvertit = new StringBuilder(str);
         str = strInvertit.reverse().toString();
-        System.out.println(str);
-        char resultat = 0;
+        int resultat = 0;
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            resultat = (char) ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+            resultat += ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
         }
+        resultat = resultat % 47;
         // passar de l'índex al caracter, cercar el caracter donant l'índex?
-        return 0;
+        return caracters.charAt(resultat);
     }
 
     private static char calcularCK2(String s) {
-        StringBuilder sInvertit = new StringBuilder(s);
-        s = sInvertit.reverse().toString();
-        System.out.println(s);
-        char resultat = 0;
+        StringBuilder strInvertit = new StringBuilder(s);
+        s = strInvertit.reverse().toString();
+        int resultat = 0;
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
-            resultat = (char) ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+            resultat += ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
         }
-        return 0;
+        resultat = resultat % 47;
+        // passar de l'índex al caracter, cercar el caracter donant l'índex?
+        return caracters.charAt(resultat);
     }
 
     private static String dibuixaGrossors(String g) {
@@ -111,10 +109,10 @@ public class Code93 {
                 }
             }
             linia = !linia;
-            System.out.println(gruix);
+            //System.out.println(gruix);
 
         }
-        System.out.println(resultat);
+        //System.out.println(resultat);
         return resultat;
     }
 
