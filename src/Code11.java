@@ -136,6 +136,10 @@ public class Code11 {
             }
         }
 
+        if (resultat.length() == 0) {
+            return null;
+        }
+
         if (resultat.charAt(0) != '*') {
             return null;
         }
@@ -243,18 +247,11 @@ public class Code11 {
             return resultat;
         }
 
-        /*StringBuilder resultatInverit = new StringBuilder(str);
-        resultat = resultatInverit.reverse().toString();
+        /*resultat = escanVertical(ar, dimensioHoritzontal);
 
         if (resultat != null) {
             return resultat;
         }*/
-
-        resultat = escanVertical(ar, dimensioHoritzontal);
-
-        if (resultat != null) {
-            return resultat;
-        }
 
         return null;
     }
@@ -280,11 +277,23 @@ public class Code11 {
                 resultat = decode(codi);
                 if (resultat != null) {
                     return resultat;
+                } else {
+                    codi = reverse(codi);
+                    resultat = decode(codi);
+                    if (resultat != null) {
+                        return resultat;
+                    }
                 }
                 nLinia++;
             }
         }
         return null;
+    }
+
+    private static String reverse(String codi) {
+        StringBuilder codiInverit = new StringBuilder(codi);
+        codi = codiInverit.reverse().toString();
+        return codi;
     }
 
     private static String obtenirNLiniesDePixels(String[] ar, int nLinea, int limitColor) {
