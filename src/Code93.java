@@ -1,8 +1,7 @@
 // https://en.wikipedia.org/wiki/Code_93
 
 public class Code93 {
-    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
-
+    static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
     static String[] grossors = new String[]{
             "131112",
             "111213",
@@ -47,6 +46,10 @@ public class Code93 {
             "112131",
             "113121",
             "211131",
+            "121221",
+            "312111",
+            "311121",
+            "122211",
             "111141"
     };
 
@@ -56,7 +59,6 @@ public class Code93 {
         char ck2 = calcularCK2(str+ck1);
 
         str = "*" + str + ck1 + ck2 + "*";
-        System.out.println(str);
 
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
@@ -72,9 +74,14 @@ public class Code93 {
         StringBuilder strInvertit = new StringBuilder(str);
         str = strInvertit.reverse().toString();
         int resultat = 0;
+        int contador = 1;
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            resultat += ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+            if (contador > 20) {
+                contador = 1;
+            }
+            resultat += ((contador) * cercarIndexDeCaracter(caracter, caracters));
+            contador++;
         }
         resultat = resultat % 47;
         // passar de l'índex al caracter, cercar el caracter donant l'índex?
@@ -85,9 +92,14 @@ public class Code93 {
         StringBuilder strInvertit = new StringBuilder(s);
         s = strInvertit.reverse().toString();
         int resultat = 0;
+        int contador = 1;
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
-            resultat += ((i + 1) * cercarIndexDeCaracter(caracter, caracters));
+            if (contador > 15) {
+                contador = 1;
+            }
+            resultat += ((contador) * cercarIndexDeCaracter(caracter, caracters));
+            contador++;
         }
         resultat = resultat % 47;
         // passar de l'índex al caracter, cercar el caracter donant l'índex?
@@ -109,10 +121,7 @@ public class Code93 {
                 }
             }
             linia = !linia;
-            //System.out.println(gruix);
-
         }
-        //System.out.println(resultat);
         return resultat;
     }
 
