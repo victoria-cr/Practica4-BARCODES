@@ -2,6 +2,7 @@
 
 public class Code93 {
     static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
+
     static String[] grossors = new String[]{
             "131112",
             "111213",
