@@ -243,6 +243,13 @@ public class Code11 {
             return resultat;
         }
 
+        /*StringBuilder resultatInverit = new StringBuilder(str);
+        resultat = resultatInverit.reverse().toString();
+
+        if (resultat != null) {
+            return resultat;
+        }*/
+
         resultat = escanVertical(ar, dimensioHoritzontal);
 
         if (resultat != null) {

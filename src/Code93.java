@@ -64,7 +64,7 @@ public class Code93 {
         String resultat = "";
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            int index = cercarIndexDeCaracter(caracter, caracters);
+            int index = cercarELIndexDelCaracter(caracter, caracters);
             String g = grossors[index];
             resultat += dibuixaGrossors(g);
         }
@@ -81,7 +81,7 @@ public class Code93 {
             if (contador > 20) {
                 contador = 1;
             }
-            resultat += ((contador) * cercarIndexDeCaracter(caracter, caracters));
+            resultat += ((contador) * cercarELIndexDelCaracter(caracter, caracters));
             contador++;
         }
         resultat = resultat % 47;
@@ -99,7 +99,7 @@ public class Code93 {
             if (contador > 15) {
                 contador = 1;
             }
-            resultat += ((contador) * cercarIndexDeCaracter(caracter, caracters));
+            resultat += ((contador) * cercarELIndexDelCaracter(caracter, caracters));
             contador++;
         }
         resultat = resultat % 47;
@@ -126,7 +126,7 @@ public class Code93 {
         return resultat;
     }
 
-    private static int cercarIndexDeCaracter(char caracter, String string) {
+    private static int cercarELIndexDelCaracter(char caracter, String string) {
         for (int i = 0; i < string.length(); i++) {
             if (caracter == string.charAt(i)) {
                 return i;
