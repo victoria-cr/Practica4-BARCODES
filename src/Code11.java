@@ -247,11 +247,11 @@ public class Code11 {
             return resultat;
         }
 
-        /*resultat = escanVertical(ar, dimensioHoritzontal);
+        resultat = escanVertical(ar, dimensioHoritzontal);
 
         if (resultat != null) {
             return resultat;
-        }*/
+        }
 
         return null;
     }
