@@ -107,6 +107,15 @@ public class Code93 {
         return caracters.charAt(resultat);
     }
 
+    private static int cercarELIndexDelCaracter(char caracter, String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (caracter == string.charAt(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private static String dibuixaGrossors(String g) {
         boolean linia = true;
         String resultat = "";
@@ -123,16 +132,7 @@ public class Code93 {
             }
             linia = !linia;
         }
-        return resultat;
-    }
-
-    private static int cercarELIndexDelCaracter(char caracter, String string) {
-        for (int i = 0; i < string.length(); i++) {
-            if (caracter == string.charAt(i)) {
-                return i;
-            }
-        }
-        return -1;
+        return resultat + "";
     }
 
     // Decodifica emprant Code93
