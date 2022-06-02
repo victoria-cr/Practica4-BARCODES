@@ -380,6 +380,88 @@ public class Code11 {
     // Alçada: 100px
     // Marges: vertical 4px, horizontal 8px
     public static String generateImage(String s) {
-        return "";
+        String resultat;
+        String barcode = barcodeMatch(s);
+        String fila = "        " + barcode + "        ";
+        int ample = fila.length();
+        String filaBuida = ferMarges(ample);
+        System.out.println(crearImatge(filaBuida, fila, ample));
+        resultat = crearImatge(filaBuida, fila, ample);
+        return resultat.trim();
+    }
+
+    static String crearImatge(String filaBuida, String fila, int ample) {
+        String resultat = "P3\n" + ample + " 108\n" + "255\n";
+        resultat += filaBuida;
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < fila.length(); j++) {
+                if (fila.charAt(j) == ' ') resultat += "255\n255\n255\n";
+                else resultat += "0\n0\n0\n";
+            }
+
+        }
+        resultat += filaBuida;
+
+        return resultat;
+    }
+
+    static String ferMarges(int ample) {
+        String resultat = "";
+        for (int i = 0; i < ample; i++) {
+            resultat += "255\n255\n255\n";
+        }
+        for (int i = 0; i < 2; i++) {
+            resultat += resultat;
+        }
+        return resultat;
+    }
+
+    static String barcodeMatch(String s) {
+        String resultat = "";
+        for (int i = 0; i < s.length(); i++) {
+            resultat += dibuixaCodiBarres(s.charAt(i));
+            resultat += "   ";
+        }
+        return resultat.trim();
+    }
+
+    static String dibuixaCodiBarres(char c) {
+        if (c == '*') {
+            return "███   ██████████          ███";
+        }
+        if (c == '0') {
+            return "███   ███   ██████████";
+        }
+        if (c == '1') {
+            return "██████████   ███   ██████████";
+        }
+        if (c == '2') {
+            return "███          ███   ██████████";
+        }
+        if (c == '3') {
+            return "██████████          ███   ███";
+        }
+        if (c == '4') {
+            return "███   ██████████   ██████████";
+        }
+        if (c == '5') {
+            return "██████████   ██████████   ███";
+        }
+        if (c == '6') {
+            return "███          ██████████   ███";
+        }
+        if (c == '7') {
+            return "███   ███          ██████████";
+        }
+        if (c == '8') {
+            return "██████████   ███          ███";
+        }
+        if (c == '9') {
+            return "██████████   ███   ███";
+        }
+        if (c == '-') {
+            return "███   ██████████   ███";
+        }
+        return null;
     }
 }
