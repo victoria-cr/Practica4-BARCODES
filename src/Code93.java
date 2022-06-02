@@ -146,16 +146,25 @@ public class Code93 {
         str = str.trim();
 
         List<Integer> grossors = calcularGrossors(str);
-        System.out.println(grossors);
 
-        int major = Collections.max(grossors);
+        //int major = Collections.max(grossors);
 
-        String resultat = cercarCaracter(grossors);
+        String resultatTotal = agruparGrossors(grossors);
 
-        return "";
+        String resultat = crarResultatFinal(resultatTotal);
+
+        return resultat;
     }
 
-    private static String cercarCaracter(List<Integer> grossors) {
+    private static String crarResultatFinal(String resultatTotal) {
+        String resultat = "";
+        for (int i = 1; i < resultatTotal.length()-3; i++) {
+            resultat += resultatTotal.charAt(i);
+        }
+        return resultat;
+    }
+
+    private static String agruparGrossors(List<Integer> grossors) {
         String resultat = "";
         String codi = "";
         int contador = 0;
@@ -165,18 +174,24 @@ public class Code93 {
                 codi += "" + grossors.get(i);
                 contador ++;
             } else {
-                char c = buscarGrosores(codi);
+                char c = cercarGrossorsICaracters(codi);
                 resultat += c;
                 codi = "";
                 contador = 0;
+                i--;
             }
         }
         return resultat;
     }
 
-    private static char buscarGrosores(String codi) {
-        char resultat = 0;
-        return resultat;
+    private static char cercarGrossorsICaracters(String codi) {
+        int resultat = 0;
+        for (int i = 0; i < grossors.length; i++) {
+            if (codi.equals(grossors[i])) {
+                resultat = i;
+            }
+        }
+        return caracters.charAt(resultat);
     }
 
     private static List<Integer> calcularGrossors(String str) {
