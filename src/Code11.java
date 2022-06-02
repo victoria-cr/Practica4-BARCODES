@@ -336,6 +336,12 @@ public class Code11 {
                 resultat = decode(codi);
                 if (resultat != null) {
                     return resultat;
+                } else {
+                    codi = reverse(codi);
+                    resultat = decode(codi);
+                    if (resultat != null) {
+                        return resultat;
+                    }
                 }
             }
             nLinia++;
