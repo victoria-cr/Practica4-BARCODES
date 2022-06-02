@@ -18,7 +18,7 @@ public class Code11 {
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
 
-            if (caracter == '*' && i == s.length()-1) {
+            if (caracter == '*' && i == s.length() - 1) {
                 resultat += "█ ██  █";
                 continue;
             }
@@ -85,6 +85,7 @@ public class Code11 {
         return resultat;
     }
 
+
     // Descodifica amb Code11
     static String decode(String s) {
         // Quitar espais
@@ -144,7 +145,7 @@ public class Code11 {
             return null;
         }
 
-        if (resultat.charAt(resultat.length()-1) != '*') {
+        if (resultat.charAt(resultat.length() - 1) != '*') {
             return null;
         }
         //System.out.println(grossors);
@@ -153,11 +154,11 @@ public class Code11 {
 
     private static List<Integer> calcularGrossors(String s) {
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < s.length();) {
+        for (int i = 0; i < s.length(); ) {
             char caracter = s.charAt(i);
             int contador = 0;
             char actual = caracter;
-            if (i == s.length()-1) {
+            if (i == s.length() - 1) {
                 contador = 1;
                 i++;
             } else {
@@ -226,6 +227,7 @@ public class Code11 {
         return null;
     }
 
+
     // Descodifica una imatge. La imatge ha d'estar en format "ppm".
     public static String decodeImage(String str) {
         /*Hacer un array y guardar el String que nos pasan. (Separar por líneas)
@@ -271,8 +273,8 @@ public class Code11 {
     private static String escanHoritzontal(String[] ar, int dimensioVertical) {
         String resultat = "";
         int nLinia = 0;
-        for (int i = 0; i < dimensioVertical/10; i++) {
-            for (int limitColor = 0; limitColor < 255; limitColor+=10) {
+        for (int i = 0; i < dimensioVertical / 10; i++) {
+            for (int limitColor = 0; limitColor < 255; limitColor += 10) {
                 String codi = obtenirNLiniesDePixels(ar, nLinia, limitColor);
                 resultat = decode(codi);
                 if (resultat != null) {
@@ -310,7 +312,7 @@ public class Code11 {
             int c = Integer.parseInt(ar[index]);
             index++;
 
-            if (esBlanc(a,b,c, limitColor)) {
+            if (esBlanc(a, b, c, limitColor)) {
                 resultat += " ";
             } else {
                 resultat += "█";
@@ -320,7 +322,7 @@ public class Code11 {
     }
 
     private static boolean esBlanc(int a, int b, int c, int limitColor) {
-        int mitjana = (a+b+c) / 3;
+        int mitjana = (a + b + c) / 3;
         if (mitjana > limitColor) {
             return true;
         }
@@ -331,7 +333,7 @@ public class Code11 {
         String resultat = "";
         int nLinia = 0;
         for (int i = 0; i < dimensioHoritzontal; i++) {
-            for (int limitColor = 0; limitColor < 255; limitColor+=10) {
+            for (int limitColor = 0; limitColor < 255; limitColor += 10) {
                 String codi = obtenirLiniaVerticalDePixels(ar, nLinia, limitColor);
                 resultat = decode(codi);
                 if (resultat != null) {
@@ -363,7 +365,7 @@ public class Code11 {
             int c = Integer.parseInt(ar[index]);
             index++;
 
-            if (esBlanc(a,b,c, limitColor)) {
+            if (esBlanc(a, b, c, limitColor)) {
                 resultat += " ";
             } else {
                 resultat += "█";
@@ -375,6 +377,7 @@ public class Code11 {
         System.out.println(resultat);
         return resultat;
     }
+
 
     // Genera imatge a partir de codi de barres:
     // Alçada: 100px
