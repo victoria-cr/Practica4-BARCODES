@@ -135,15 +135,18 @@ public class Code93 {
         return resultat + "";
     }
 
+
     // Decodifica emprant Code93
     static String decode(String str) {
         return "";
     }
 
+
     // Decodifica una imatge. La imatge ha d'estar en format "ppm"
     public static String decodeImage(String str) {
         return "";
     }
+
 
     // Genera imatge a partir de barcode code93
     // Unitat barra mínima: 3 pixels
