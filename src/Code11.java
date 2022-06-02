@@ -148,7 +148,6 @@ public class Code11 {
         if (resultat.charAt(resultat.length() - 1) != '*') {
             return null;
         }
-        //System.out.println(grossors);
         return resultat;
     }
 
