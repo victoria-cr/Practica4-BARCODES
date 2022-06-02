@@ -373,7 +373,6 @@ public class Code11 {
             index = dimensioHoritzontal * 3 + index - 3;
 
         }
-        System.out.println(resultat);
         return resultat;
     }
 
