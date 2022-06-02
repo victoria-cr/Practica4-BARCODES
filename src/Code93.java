@@ -147,7 +147,7 @@ public class Code93 {
 
         List<Integer> grossors = calcularGrossors(str);
 
-        //int major = Collections.max(grossors);
+        int major = Collections.max(grossors);
 
         String resultatTotal = agruparGrossors(grossors);
 
