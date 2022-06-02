@@ -98,8 +98,6 @@ public class Code11 {
 
         int major = Collections.max(grossors);
         int menor = Collections.min(grossors);
-        System.out.println("major = " + major);
-        System.out.println("menor = " + menor);
 
         if (menor * 15 < major) {
             return null;
@@ -149,7 +147,7 @@ public class Code11 {
         if (resultat.charAt(resultat.length()-1) != '*') {
             return null;
         }
-        System.out.println(grossors);
+        //System.out.println(grossors);
         return resultat;
     }
 
@@ -339,18 +337,19 @@ public class Code11 {
                 if (resultat != null) {
                     return resultat;
                 }
-                nLinia++;
             }
+            nLinia++;
         }
         return null;
     }
 
     private static String obtenirLiniaVerticalDePixels(String[] ar, int nLinia, int limitColor) {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+        int dimensioVertical = treureDimensioVertical(ar);
         int llegirLiniaN = 3 * nLinia;
         int index = llegirLiniaN + 4;
         String resultat = "";
-        for (int i = 0; i < dimensioHoritzontal; i++) {
+        for (int i = 0; i < dimensioVertical; i++) {
             int a = Integer.parseInt(ar[index]);
             index++;
             int b = Integer.parseInt(ar[index]);
@@ -367,6 +366,7 @@ public class Code11 {
             index = dimensioHoritzontal * 3 + index - 3;
 
         }
+        System.out.println(resultat);
         return resultat;
     }
 
