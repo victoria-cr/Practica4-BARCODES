@@ -1,5 +1,9 @@
 // https://en.wikipedia.org/wiki/Code_93
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Code93 {
     static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
 
@@ -136,9 +140,66 @@ public class Code93 {
     }
 
 
-    // Decodifica emprant Code93
+    // Descodifica emprant Code93
     static String decode(String str) {
+        // Quitar espais
+        str = str.trim();
+
+        List<Integer> grossors = calcularGrossors(str);
+        System.out.println(grossors);
+
+        int major = Collections.max(grossors);
+
+        String resultat = cercarCaracter(grossors);
+
         return "";
+    }
+
+    private static String cercarCaracter(List<Integer> grossors) {
+        String resultat = "";
+        String codi = "";
+        int contador = 0;
+        for (int i = 0; i < grossors.size(); i++) {
+            if (contador < 6) {
+                //coger núms de grossors y ponerlos en codi
+                codi += "" + grossors.get(i);
+                contador ++;
+            } else {
+                char c = buscarGrosores(codi);
+                resultat += c;
+                codi = "";
+                contador = 0;
+            }
+        }
+        return resultat;
+    }
+
+    private static char buscarGrosores(String codi) {
+        char resultat = 0;
+        return resultat;
+    }
+
+    private static List<Integer> calcularGrossors(String str) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < str.length(); ) {
+            char caracter = str.charAt(i);
+            int contador = 0;
+            char actual = caracter;
+            if (i == str.length() - 1) {
+                contador = 1;
+                i++;
+            } else {
+                i++;
+                while (caracter == actual && i < str.length()) {
+                    actual = str.charAt(i);
+                    i++;
+                    contador++;
+                }
+                i--;
+            }
+            list.add(contador);
+        }
+        return list;
     }
 
 

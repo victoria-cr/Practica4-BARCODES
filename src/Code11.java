@@ -115,6 +115,29 @@ public class Code11 {
         return null;
     }
 
+    private static List<Integer> calcularGrossors(String s) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < s.length(); ) {
+            char caracter = s.charAt(i);
+            int contador = 0;
+            char actual = caracter;
+            if (i == s.length() - 1) {
+                contador = 1;
+                i++;
+            } else {
+                i++;
+                while (caracter == actual && i < s.length()) {
+                    actual = s.charAt(i);
+                    i++;
+                    contador++;
+                }
+                i--;
+            }
+            list.add(contador);
+        }
+        return list;
+    }
+
     private static String provarGrossors(List<Integer> grossors, int major) {
         int limit = major;
         String codi = "";
@@ -149,29 +172,6 @@ public class Code11 {
             return null;
         }
         return resultat;
-    }
-
-    private static List<Integer> calcularGrossors(String s) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < s.length(); ) {
-            char caracter = s.charAt(i);
-            int contador = 0;
-            char actual = caracter;
-            if (i == s.length() - 1) {
-                contador = 1;
-                i++;
-            } else {
-                i++;
-                while (caracter == actual && i < s.length()) {
-                    actual = s.charAt(i);
-                    i++;
-                    contador++;
-                }
-                i--;
-            }
-            list.add(contador);
-        }
-        return list;
     }
 
     private static String codificarCaracter(String codi) {
