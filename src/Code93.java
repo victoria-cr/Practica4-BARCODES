@@ -57,7 +57,7 @@ public class Code93 {
     // Codifica emprant Code93
     static String encode(String str) {
         char ck1 = calcularCK1(str);
-        char ck2 = calcularCK2(str+ck1);
+        char ck2 = calcularCK2(str + ck1);
 
         str = "*" + str + ck1 + ck2 + "*";
 
@@ -125,7 +125,7 @@ public class Code93 {
                 for (int j = 0; j < gruix; j++) {
                     resultat += "█";
                 }
-            } else  {
+            } else {
                 for (int j = 0; j < gruix; j++) {
                     resultat += " ";
                 }
