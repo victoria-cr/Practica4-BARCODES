@@ -88,7 +88,6 @@ public class Code11 {
 
     // Descodifica amb Code11
     static String decode(String s) {
-        // Quitar espais
         s = s.trim();
 
         List<Integer> grossors = calcularGrossors(s);
@@ -108,8 +107,9 @@ public class Code11 {
             String resultat = provarGrossors(grossors, major);
             if (resultat != null) {
                 return resultat;
+            } else {
+                major--;
             }
-            major--;
         }
 
         return null;
@@ -139,11 +139,10 @@ public class Code11 {
     }
 
     private static String provarGrossors(List<Integer> grossors, int major) {
-        int limit = major;
         String codi = "";
         String resultat = "";
         for (int i = 0; i < grossors.size(); i++) {
-            if (grossors.get(i) >= limit) {
+            if (grossors.get(i) >= major) {
                 codi += "1";
             } else {
                 codi += "0";

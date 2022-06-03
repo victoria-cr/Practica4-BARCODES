@@ -8,55 +8,47 @@ public class Code93 {
     static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%∦∬⊘⊕*";
 
     static String[] grossors = new String[]{
-            "131112",
-            "111213",
-            "111312",
-            "111411",
-            "121113",
-            "121212",
-            "121311",
-            "111114",
-            "131211",
-            "141111",
-            "211113",
-            "211212",
-            "211311",
-            "221112",
-            "221211",
-            "231111",
-            "112113",
-            "112212",
-            "112311",
-            "122112",
-            "132111",
-            "111123",
-            "111222",
-            "111321",
-            "121122",
-            "131121",
-            "212112",
-            "212211",
-            "211122",
-            "211221",
-            "221121",
-            "222111",
-            "112122",
-            "112221",
-            "122121",
-            "123111",
-            "121131",
-            "311112",
-            "311211",
-            "321111",
-            "112131",
-            "113121",
-            "211131",
-            "121221",
-            "312111",
-            "311121",
-            "122211",
-            "111141"
+            "131112", "111213", "111312", "111411", "121113", "121212",
+            "121311", "111114", "131211", "141111", "211113", "211212",
+            "211311", "221112", "221211", "231111", "112113", "112212",
+            "112311", "122112", "132111", "111123", "111222", "111321",
+            "121122", "131121", "212112", "212211", "211122", "211221",
+            "221121", "222111", "112122", "112221", "122121", "123111",
+            "121131", "311112", "311211", "321111", "112131", "113121",
+            "211131", "121221", "312111", "311121", "122211", "111141"
     };
+
+    static String encodeExtended(char c) {
+        if (c == 'a') return "⊕A";
+        if (c == 'b') return "⊕B";
+        if (c == 'c') return "⊕C";
+        if (c == 'd') return "⊕D";
+        if (c == 'e') return "⊕E";
+        if (c == 'f') return "⊕F";
+        if (c == 'g') return "⊕G";
+        if (c == 'h') return "⊕H";
+        if (c == 'i') return "⊕I";
+        if (c == 'j') return "⊕J";
+        if (c == 'k') return "⊕K";
+        if (c == 'l') return "⊕L";
+        if (c == 'm') return "⊕M";
+        if (c == 'n') return "⊕N";
+        if (c == 'o') return "⊕O";
+        if (c == 'p') return "⊕P";
+        if (c == 'q') return "⊕Q";
+        if (c == 'r') return "⊕R";
+        if (c == 's') return "⊕S";
+        if (c == 't') return "⊕T";
+        if (c == 'u') return "⊕U";
+        if (c == 'v') return "⊕V";
+        if (c == 'w') return "⊕W";
+        if (c == 'x') return "⊕X";
+        if (c == 'y') return "⊕Y";
+        if (c == 'z') return "⊕Z";
+        if (c == ',') return "⊘L";
+        if (c == '*') return "J";
+        return null;
+    }
 
     // Codifica emprant Code93
     static String encode(String str) {
@@ -146,19 +138,33 @@ public class Code93 {
         str = str.trim();
 
         List<Integer> grossors = calcularGrossors(str);
+        System.out.println(grossors);
 
-        int major = Collections.max(grossors);
+        int max = Collections.max(grossors);
+        System.out.println("max: " + max);
+        int minim = Collections.min(grossors);
+        System.out.println("min: " + minim);
+
+        String ajustarGrossors = grossorsAjustats(grossors, minim);
 
         String resultatTotal = agruparGrossors(grossors);
 
-        String resultat = crarResultatFinal(resultatTotal);
+        String resultat = crearResultatFinal(resultatTotal);
 
         return resultat;
     }
 
-    private static String crarResultatFinal(String resultatTotal) {
+    private static String grossorsAjustats(List<Integer> grossors, Integer minim) {
         String resultat = "";
-        for (int i = 1; i < resultatTotal.length()-3; i++) {
+        for (int i = 0; i < grossors.size(); i++) {
+            resultat += Integer.parseInt(String.valueOf(grossors.get(i))) / minim;
+        }
+        return resultat;
+    }
+
+    private static String crearResultatFinal(String resultatTotal) {
+        String resultat = "";
+        for (int i = 1; i < resultatTotal.length() - 3; i++) {
             resultat += resultatTotal.charAt(i);
         }
         return resultat;
@@ -172,7 +178,7 @@ public class Code93 {
             if (contador < 6) {
                 //coger núms de grossors y ponerlos en codi
                 codi += "" + grossors.get(i);
-                contador ++;
+                contador++;
             } else {
                 char c = cercarGrossorsICaracters(codi);
                 resultat += c;
@@ -181,6 +187,7 @@ public class Code93 {
                 i--;
             }
         }
+        System.out.println(resultat);
         return resultat;
     }
 
@@ -201,8 +208,12 @@ public class Code93 {
             int contador = 0;
             char actual = caracter;
             if (i == str.length() - 1) {
-                contador = 1;
-                i++;
+                if (caracter != actual) {
+                    int n = list.get(list.size()-1) +1;
+                    list.remove(list.size()-1);
+                    list.add(n);
+                }
+                break;
             } else {
                 i++;
                 while (caracter == actual && i < str.length()) {
@@ -214,6 +225,7 @@ public class Code93 {
             }
             list.add(contador);
         }
+        System.out.println(list);
         return list;
     }
 
