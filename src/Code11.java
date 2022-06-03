@@ -116,11 +116,11 @@ public class Code11 {
     }
 
     private static List<Integer> calcularGrossors(String s) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> llistaDeGrossors = new ArrayList<>();
         for (int i = 0; i < s.length(); ) {
             char caracter = s.charAt(i);
-            int contador = 0;
             char actual = caracter;
+            int contador = 0;
             if (i == s.length() - 1) {
                 contador = 1;
                 i++;
@@ -133,9 +133,9 @@ public class Code11 {
                 }
                 i--;
             }
-            list.add(contador);
+            llistaDeGrossors.add(contador);
         }
-        return list;
+        return llistaDeGrossors;
     }
 
     private static String provarGrossors(List<Integer> grossors, int major) {

@@ -137,29 +137,38 @@ public class Code93 {
         // Quitar espais
         str = str.trim();
 
-        List<Integer> grossors = calcularGrossors(str);
+        List<String> grossors = calcularGrossors(str);
         System.out.println(grossors);
 
-        int max = Collections.max(grossors);
-        System.out.println("max: " + max);
-        int minim = Collections.min(grossors);
-        System.out.println("min: " + minim);
+        String ajustarGrossors = ajustarGrossors(grossors);
+        System.out.println(ajustarGrossors);
 
-        String ajustarGrossors = grossorsAjustats(grossors, minim);
-
-        String resultatTotal = agruparGrossors(grossors);
+        String resultatTotal = agruparGrossors(ajustarGrossors);
+        System.out.println("afrherhqg" + resultatTotal);
 
         String resultat = crearResultatFinal(resultatTotal);
 
         return resultat;
     }
 
-    private static String grossorsAjustats(List<Integer> grossors, Integer minim) {
+    private static String ajustarGrossors(List<String> s) {
+        int minim = tamanyBarra(s);
+        System.out.println(minim);
         String resultat = "";
-        for (int i = 0; i < grossors.size(); i++) {
-            resultat += Integer.parseInt(String.valueOf(grossors.get(i))) / minim;
+        for (int i = 0; i < s.size(); i++) {
+            resultat += Integer.parseInt(s.get(i)) / minim;
         }
         return resultat;
+    }
+
+    private static int tamanyBarra(List<String> s) {
+        int comparador = 10000;
+        for (int i = 0; i < s.size(); i++) {
+            if (Integer.parseInt(s.get(i)) < comparador) {
+                comparador = Integer.parseInt(s.get(i));
+            }
+        }
+        return comparador;
     }
 
     private static String crearResultatFinal(String resultatTotal) {
@@ -170,14 +179,14 @@ public class Code93 {
         return resultat;
     }
 
-    private static String agruparGrossors(List<Integer> grossors) {
+    private static String agruparGrossors(String grossors) {
         String resultat = "";
         String codi = "";
         int contador = 0;
-        for (int i = 0; i < grossors.size(); i++) {
+        for (int i = 0; i < grossors.length(); i++) {
             if (contador < 6) {
                 //coger núms de grossors y ponerlos en codi
-                codi += "" + grossors.get(i);
+                codi += "" + grossors.charAt(i);
                 contador++;
             } else {
                 char c = cercarGrossorsICaracters(codi);
@@ -201,32 +210,22 @@ public class Code93 {
         return caracters.charAt(resultat);
     }
 
-    private static List<Integer> calcularGrossors(String str) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < str.length(); ) {
-            char caracter = str.charAt(i);
-            int contador = 0;
-            char actual = caracter;
-            if (i == str.length() - 1) {
-                if (caracter != actual) {
-                    int n = list.get(list.size()-1) +1;
-                    list.remove(list.size()-1);
-                    list.add(n);
-                }
-                break;
-            } else {
-                i++;
-                while (caracter == actual && i < str.length()) {
-                    actual = str.charAt(i);
-                    i++;
-                    contador++;
-                }
-                i--;
+    static List<String> calcularGrossors(String s) {
+        int pos = 0;
+        List<String> resultado = new ArrayList<>();
+        while (pos < s.length() - 1) {
+            char c = s.charAt(pos);
+            int cont = 1;
+            pos++;
+            while (s.charAt(pos) == c) {
+                cont++;
+                if (pos != s.length() - 1) pos++;
+                else break;
             }
-            list.add(contador);
+            resultado.add(cont + "");
         }
-        System.out.println(list);
-        return list;
+        if (s.charAt(s.length() - 1) == '█' && s.charAt(s.length() - 2) == ' ') resultado.add("1");
+        return resultado;
     }
 
 
