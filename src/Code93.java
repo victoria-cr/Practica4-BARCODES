@@ -138,17 +138,34 @@ public class Code93 {
         str = str.trim();
 
         List<String> grossors = calcularGrossors(str);
-        System.out.println(grossors);
 
         String ajustarGrossors = ajustarGrossors(grossors);
-        System.out.println(ajustarGrossors);
 
         String resultatTotal = agruparGrossors(ajustarGrossors);
-        System.out.println("afrherhqg" + resultatTotal);
 
         String resultat = crearResultatFinal(resultatTotal);
 
         return resultat;
+    }
+
+    static List<String> calcularGrossors(String s) {
+        int pos = 0;
+        List<String> resultado = new ArrayList<>();
+        while (pos < s.length() - 1) {
+            char c = s.charAt(pos);
+            int cont = 1;
+            pos++;
+            while (s.charAt(pos) == c) {
+                cont++;
+                if (pos != s.length() - 1) pos++;
+                else break;
+            }
+            resultado.add(cont + "");
+        }
+        if (s.charAt(s.length() - 1) == '█' && s.charAt(s.length() - 2) == ' ') {
+            resultado.add("1");
+        }
+        return resultado;
     }
 
     private static String ajustarGrossors(List<String> s) {
@@ -171,14 +188,6 @@ public class Code93 {
         return comparador;
     }
 
-    private static String crearResultatFinal(String resultatTotal) {
-        String resultat = "";
-        for (int i = 1; i < resultatTotal.length() - 3; i++) {
-            resultat += resultatTotal.charAt(i);
-        }
-        return resultat;
-    }
-
     private static String agruparGrossors(String grossors) {
         String resultat = "";
         String codi = "";
@@ -196,7 +205,6 @@ public class Code93 {
                 i--;
             }
         }
-        System.out.println(resultat);
         return resultat;
     }
 
@@ -210,22 +218,12 @@ public class Code93 {
         return caracters.charAt(resultat);
     }
 
-    static List<String> calcularGrossors(String s) {
-        int pos = 0;
-        List<String> resultado = new ArrayList<>();
-        while (pos < s.length() - 1) {
-            char c = s.charAt(pos);
-            int cont = 1;
-            pos++;
-            while (s.charAt(pos) == c) {
-                cont++;
-                if (pos != s.length() - 1) pos++;
-                else break;
-            }
-            resultado.add(cont + "");
+    private static String crearResultatFinal(String resultatTotal) {
+        String resultat = "";
+        for (int i = 1; i < resultatTotal.length() - 3; i++) {
+            resultat += resultatTotal.charAt(i);
         }
-        if (s.charAt(s.length() - 1) == '█' && s.charAt(s.length() - 2) == ' ') resultado.add("1");
-        return resultado;
+        return resultat;
     }
 
 

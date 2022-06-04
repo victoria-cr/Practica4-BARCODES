@@ -142,7 +142,6 @@ public class Code93Test {
                 Code93.decodeImage(imageStr));
     }
 
-
     @Test
     public void generateImageTest2() throws Exception {
         assertEquals("9616570b73764754cc8613259935a407",
