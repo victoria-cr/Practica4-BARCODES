@@ -14,17 +14,6 @@ public class Code93 {
             "121131", "311112", "311211", "321111", "112131", "113121", "211131", "121221", "312111", "311121", "122211", "111141"
     };
 
-    static String encodeExtended(char c) {
-        if (c == 'a') return "⊕A"; if (c == 'b') return "⊕B"; if (c == 'c') return "⊕C"; if (c == 'd') return "⊕D";
-        if (c == 'e') return "⊕E"; if (c == 'f') return "⊕F"; if (c == 'g') return "⊕G"; if (c == 'h') return "⊕H";
-        if (c == 'i') return "⊕I"; if (c == 'j') return "⊕J"; if (c == 'k') return "⊕K"; if (c == 'l') return "⊕L";
-        if (c == 'm') return "⊕M"; if (c == 'n') return "⊕N"; if (c == 'o') return "⊕O"; if (c == 'p') return "⊕P";
-        if (c == 'q') return "⊕Q"; if (c == 'r') return "⊕R"; if (c == 's') return "⊕S"; if (c == 't') return "⊕T";
-        if (c == 'u') return "⊕U"; if (c == 'v') return "⊕V"; if (c == 'w') return "⊕W"; if (c == 'x') return "⊕X";
-        if (c == 'y') return "⊕Y"; if (c == 'z') return "⊕Z"; if (c == ',') return "∦L"; if (c == '*') return "∦J";
-        return null;
-    }
-
     // Codifica emprant Code93
     static String encode(String str) {
         char ck1 = calcularCK1(str);
@@ -111,7 +100,6 @@ public class Code93 {
 
     // Descodifica emprant Code93
     static String decode(String str) {
-        // Quitar espais
         str = str.trim();
 
         List<String> grossors = calcularGrossors(str);
@@ -199,10 +187,6 @@ public class Code93 {
     }
 
     private static String crearResultatFinal(String resultatTotal) {
-        System.out.println(resultatTotal);
-//        if (compararCK(resultatTotal)) {
-//            return null;
-//        }
         String resultat = "";
         for (int i = 1; i < resultatTotal.length() - 3; i++) {
             if (resultatTotal.charAt(i) == '⊕') {
@@ -212,13 +196,8 @@ public class Code93 {
                 resultat += resultatTotal.charAt(i);
             }
         }
-        System.out.println(resultat);
         return resultat;
     }
-
-//    private static boolean compararCK(String resultatTotal) {
-//        return false;
-//    }
 
 
     // Decodifica una imatge. La imatge ha d'estar en format "ppm"
@@ -231,89 +210,7 @@ public class Code93 {
     // Unitat barra mínima: 3 pixels
     // Alçada: 100px
     // Marges: vertical: 5px, horizontal: 15px
-    /*public static String generateImage(String s) {
-        String resultat;
-        String barcode = barcodeMatch(s);
-        String fila = "               " + barcode + "               ";
-        int ample = fila.length();
-        String filaBuida = ferMarges(ample);
-        System.out.println(crearImatge(filaBuida, fila, ample));
-        resultat = crearImatge(filaBuida, fila, ample);
-        return resultat.trim();
+    public static String generateImage(String s) {
+        return "";
     }
-
-    static String crearImatge(String filaBuida, String fila, int ample) {
-        String resultat = "P3\n" + ample + " 108\n" + "255\n";
-        resultat += filaBuida;
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < fila.length(); j++) {
-                if (fila.charAt(j) == ' ') resultat += "255\n255\n255\n";
-                else resultat += "0\n0\n0\n";
-            }
-
-        }
-        resultat += filaBuida;
-
-        return resultat;
-    }
-
-    static String ferMarges(int ample) {
-        String resultat = "";
-        for (int i = 0; i < ample; i++) {
-            resultat += "255\n255\n255\n";
-        }
-        for (int i = 0; i < 2; i++) {
-            resultat += resultat;
-        }
-        return resultat;
-    }
-
-    static String barcodeMatch(String s) {
-        String resultat = "";
-        for (int i = 0; i < s.length(); i++) {
-            resultat += dibuixaCodiBarres(s.charAt(i));
-            resultat += "   ";
-        }
-        return resultat.trim();
-    }
-
-    static String dibuixaCodiBarres(char c) {
-        if (c == '*') {
-            return "███   ██████████          ███";
-        }
-        if (c == '0') {
-            return "███   ███   ██████████";
-        }
-        if (c == '1') {
-            return "██████████   ███   ██████████";
-        }
-        if (c == '2') {
-            return "███          ███   ██████████";
-        }
-        if (c == '3') {
-            return "██████████          ███   ███";
-        }
-        if (c == '4') {
-            return "███   ██████████   ██████████";
-        }
-        if (c == '5') {
-            return "██████████   ██████████   ███";
-        }
-        if (c == '6') {
-            return "███          ██████████   ███";
-        }
-        if (c == '7') {
-            return "███   ███          ██████████";
-        }
-        if (c == '8') {
-            return "██████████   ███          ███";
-        }
-        if (c == '9') {
-            return "██████████   ███   ███";
-        }
-        if (c == '-') {
-            return "███   ██████████   ███";
-        }
-        return null;
-    }*/
 }

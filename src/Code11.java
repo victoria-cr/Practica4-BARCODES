@@ -241,12 +241,12 @@ public class Code11 {
         int dimensioVertical = treureDimensioVertical(ar);
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
 
-        String resultat = escanHoritzontal(ar, dimensioVertical);
+        String resultat = escanerHoritzontal(ar, dimensioVertical);
         if (resultat != null) {
             return resultat;
         }
 
-        resultat = escanVertical(ar, dimensioHoritzontal);
+        resultat = escanerVertical(ar, dimensioHoritzontal);
         if (resultat != null) {
             return resultat;
         }
@@ -266,12 +266,12 @@ public class Code11 {
         return Integer.parseInt(arDimensioHoritzontal[0]);
     }
 
-    private static String escanHoritzontal(String[] ar, int dimensioVertical) {
+    private static String escanerHoritzontal(String[] ar, int dimensioVertical) {
         String resultat = "";
         int nLinia = 0;
         for (int i = 0; i < dimensioVertical / 10; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor += 10) {
-                String codi = obtenirNLiniesDePixels(ar, nLinia, limitColor);
+                String codi = obtenirLiniaHoritzontalDePixels(ar, nLinia, limitColor);
                 resultat = decode(codi);
                 if (resultat != null) {
                     return resultat;
@@ -288,7 +288,7 @@ public class Code11 {
         return null;
     }
 
-    private static String obtenirNLiniesDePixels(String[] ar, int nLinea, int limitColor) {
+    private static String obtenirLiniaHoritzontalDePixels(String[] ar, int nLinea, int limitColor) {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
         int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
         int index = llegirLiniaN + 4;
@@ -310,7 +310,7 @@ public class Code11 {
         return resultat;
     }
 
-    private static String escanVertical(String[] ar, int dimensioHoritzontal) {
+    private static String escanerVertical(String[] ar, int dimensioHoritzontal) {
         String resultat = "";
         int nLinia = 0;
         for (int i = 0; i < dimensioHoritzontal; i++) {
@@ -327,7 +327,7 @@ public class Code11 {
                     }
                 }
             }
-            nLinia++;
+            nLinia += 10;
         }
         return null;
     }
