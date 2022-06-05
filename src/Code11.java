@@ -231,8 +231,8 @@ public class Code11 {
         /*Hacer un array y guardar el String que nos pasan. (Separar por líneas)
           Obtener primera línea de pixeles.
           LLamar a decode.*/
-        String[] ar1 = str.split("\n");
-        List<String> llista = new ArrayList<>(List.of(ar1));
+        String[] separarStringEnLinies = str.split("\n");
+        List<String> llista = new ArrayList<>(List.of(separarStringEnLinies));
         if (llista.get(1).charAt(0) != '#') {
             llista.add(1, "#");
         }
@@ -242,13 +242,11 @@ public class Code11 {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
 
         String resultat = escanHoritzontal(ar, dimensioVertical);
-
         if (resultat != null) {
             return resultat;
         }
 
         resultat = escanVertical(ar, dimensioHoritzontal);
-
         if (resultat != null) {
             return resultat;
         }
@@ -278,7 +276,7 @@ public class Code11 {
                 if (resultat != null) {
                     return resultat;
                 } else {
-                    codi = reverse(codi);
+                    codi = invertirCodi(codi);
                     resultat = decode(codi);
                     if (resultat != null) {
                         return resultat;
@@ -290,15 +288,8 @@ public class Code11 {
         return null;
     }
 
-    private static String reverse(String codi) {
-        StringBuilder codiInverit = new StringBuilder(codi);
-        codi = codiInverit.reverse().toString();
-        return codi;
-    }
-
     private static String obtenirNLiniesDePixels(String[] ar, int nLinea, int limitColor) {
         int dimensioHoritzontal = treureDimensioHoritzontal(ar);
-        int dimensioVertical = treureDimensioVertical(ar);
         int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
         int index = llegirLiniaN + 4;
         String resultat = "";
@@ -319,25 +310,17 @@ public class Code11 {
         return resultat;
     }
 
-    private static boolean esBlanc(int a, int b, int c, int limitColor) {
-        int mitjana = (a + b + c) / 3;
-        if (mitjana > limitColor) {
-            return true;
-        }
-        return false;
-    }
-
     private static String escanVertical(String[] ar, int dimensioHoritzontal) {
         String resultat = "";
         int nLinia = 0;
         for (int i = 0; i < dimensioHoritzontal; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor += 10) {
-                String codi = obtenirLiniaVerticalDePixels(ar, nLinia, limitColor);
+                String codi = obtenirLiniaVerticalDePixels(ar, nLinia, limitColor, dimensioHoritzontal);
                 resultat = decode(codi);
                 if (resultat != null) {
                     return resultat;
                 } else {
-                    codi = reverse(codi);
+                    codi = invertirCodi(codi);
                     resultat = decode(codi);
                     if (resultat != null) {
                         return resultat;
@@ -349,8 +332,7 @@ public class Code11 {
         return null;
     }
 
-    private static String obtenirLiniaVerticalDePixels(String[] ar, int nLinia, int limitColor) {
-        int dimensioHoritzontal = treureDimensioHoritzontal(ar);
+    private static String obtenirLiniaVerticalDePixels(String[] ar, int nLinia, int limitColor, int dimensioHoritzontal) {
         int dimensioVertical = treureDimensioVertical(ar);
         int llegirLiniaN = 3 * nLinia;
         int index = llegirLiniaN + 4;
@@ -373,6 +355,20 @@ public class Code11 {
 
         }
         return resultat;
+    }
+
+    private static boolean esBlanc(int a, int b, int c, int limitColor) {
+        int mitjana = (a + b + c) / 3;
+        if (mitjana > limitColor) {
+            return true;
+        }
+        return false;
+    }
+
+    private static String invertirCodi(String codi) {
+        StringBuilder codiInverit = new StringBuilder(codi);
+        codi = codiInverit.reverse().toString();
+        return codi;
     }
 
 
