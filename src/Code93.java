@@ -25,7 +25,7 @@ public class Code93 {
 
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
-            int index = cercarELIndexDelCaracter(caracter, caracters);
+            int index = cercarElIndexDelCaracter(caracter, caracters);
             String g = grossors[index];
             resultat += dibuixarGrossors(g);
         }
@@ -36,40 +36,46 @@ public class Code93 {
     private static char calcularCK1(String str) {
         StringBuilder strInvertit = new StringBuilder(str);
         str = strInvertit.reverse().toString();
+
         int resultat = 0;
         int contador = 1;
+
         for (int i = 0; i < str.length(); i++) {
             char caracter = str.charAt(i);
             if (contador > 20) {
                 contador = 1;
             }
-            resultat += ((contador) * cercarELIndexDelCaracter(caracter, caracters));
+            resultat += ((contador) * cercarElIndexDelCaracter(caracter, caracters));
             contador++;
         }
+
         resultat = resultat % 47;
-        // passar de l'índex al caracter, cercar el caracter donant l'índex?
+
         return caracters.charAt(resultat);
     }
 
     private static char calcularCK2(String s) {
         StringBuilder strInvertit = new StringBuilder(s);
         s = strInvertit.reverse().toString();
+
         int resultat = 0;
         int contador = 1;
+
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
             if (contador > 15) {
                 contador = 1;
             }
-            resultat += ((contador) * cercarELIndexDelCaracter(caracter, caracters));
+            resultat += ((contador) * cercarElIndexDelCaracter(caracter, caracters));
             contador++;
         }
+
         resultat = resultat % 47;
-        // passar de l'índex al caracter, cercar el caracter donant l'índex?
+
         return caracters.charAt(resultat);
     }
 
-    private static int cercarELIndexDelCaracter(char caracter, String string) {
+    private static int cercarElIndexDelCaracter(char caracter, String string) {
         for (int i = 0; i < string.length(); i++) {
             if (caracter == string.charAt(i)) {
                 return i;
@@ -81,6 +87,7 @@ public class Code93 {
     private static String dibuixarGrossors(String g) {
         boolean linia = true;
         String resultat = "";
+
         for (int i = 0; i < g.length(); i++) {
             int gruix = g.charAt(i) - '0';
             if (linia) {
@@ -94,6 +101,7 @@ public class Code93 {
             }
             linia = !linia;
         }
+
         return resultat + "";
     }
 
@@ -108,14 +116,13 @@ public class Code93 {
 
         String resultatTotal = agruparGrossors(ajustarGrossors);
 
-        String resultat = crearResultatFinal(resultatTotal);
-
-        return resultat;
+        return crearResultatFinal(resultatTotal);
     }
 
     static List<String> calcularGrossors(String str) {
         int posicio = 0;
         List<String> resultat = new ArrayList<>();
+
         while (posicio < str.length() - 1) {
             char c = str.charAt(posicio);
             int contador = 1;
@@ -124,45 +131,50 @@ public class Code93 {
                 contador++;
                 if (posicio != str.length() - 1) {
                     posicio++;
-                }
-                else {
+                } else {
                     break;
                 }
             }
             resultat.add(contador + "");
         }
+
         if (str.charAt(str.length() - 1) == '█' && str.charAt(str.length() - 2) == ' ') {
             resultat.add("1");
         }
+
         return resultat;
     }
 
-    private static String ajustarGrossors(List<String> s) {
-        int minim = tamanyBarra(s);
+    private static String ajustarGrossors(List<String> grossors) {
+        int minim = tamanyBarraMesPetita(grossors);
         String resultat = "";
-        for (int i = 0; i < s.size(); i++) {
-            resultat += Integer.parseInt(s.get(i)) / minim;
+
+        for (int i = 0; i < grossors.size(); i++) {
+            resultat += Integer.parseInt(grossors.get(i)) / minim;
         }
+
         return resultat;
     }
 
-    private static int tamanyBarra(List<String> s) {
-        int comparador = 10000;
-        for (int i = 0; i < s.size(); i++) {
-            if (Integer.parseInt(s.get(i)) < comparador) {
-                comparador = Integer.parseInt(s.get(i));
+    private static int tamanyBarraMesPetita(List<String> grossors) {
+        int numMinim = 10000;
+
+        for (int i = 0; i < grossors.size(); i++) {
+            if (Integer.parseInt(grossors.get(i)) < numMinim) {
+                numMinim = Integer.parseInt(grossors.get(i));
             }
         }
-        return comparador;
+
+        return numMinim;
     }
 
     private static String agruparGrossors(String grossors) {
         String resultat = "";
         String codi = "";
         int contador = 0;
+
         for (int i = 0; i < grossors.length(); i++) {
             if (contador < 6) {
-                //coger núms de grossors y posar-los en codi
                 codi += "" + grossors.charAt(i);
                 contador++;
             } else {
@@ -173,29 +185,35 @@ public class Code93 {
                 i--;
             }
         }
+
         return resultat;
     }
 
     private static char cercarGrossorsICaracters(String codi) {
         int resultat = 0;
+
         for (int i = 0; i < grossors.length; i++) {
             if (codi.equals(grossors[i])) {
                 resultat = i;
             }
         }
+
         return caracters.charAt(resultat);
     }
 
     private static String crearResultatFinal(String resultatTotal) {
         String resultat = "";
+
         for (int i = 1; i < resultatTotal.length() - 3; i++) {
             if (resultatTotal.charAt(i) == '⊕') {
+                //extended
                 i++;
                 resultat += resultatTotal.toLowerCase(Locale.ROOT).charAt(i);
             } else {
                 resultat += resultatTotal.charAt(i);
             }
         }
+
         return resultat;
     }
 
