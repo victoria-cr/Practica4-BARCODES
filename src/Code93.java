@@ -208,7 +208,6 @@ public class Code93 {
 
         for (int i = 1; i < resultatTotal.length() - 3; i++) {
             if (resultatTotal.charAt(i) == '⊕') {
-                //extended
                 i++;
                 resultat += resultatTotal.toLowerCase(Locale.ROOT).charAt(i);
             } else {
