@@ -450,10 +450,12 @@ public class Code11 {
         resultat += filaBuida;
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < fila.length(); j++) {
-                if (fila.charAt(j) == ' ') resultat += "255\n255\n255\n";
-                else resultat += "0\n0\n0\n";
+                if (fila.charAt(j) == ' ') {
+                    resultat += "255\n255\n255\n";
+                } else {
+                    resultat += "0\n0\n0\n";
+                }
             }
-
         }
         resultat += filaBuida;
 
