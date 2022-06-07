@@ -381,7 +381,6 @@ public class Code11 {
         String fila = "        " + barcode + "        ";
         int ample = fila.length();
         String filaBuida = crearMargesDeLaImatge(ample);
-        System.out.println(crearImatge(filaBuida, fila, ample));
         resultat = crearImatge(filaBuida, fila, ample);
         return resultat.trim();
     }
