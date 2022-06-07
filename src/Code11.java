@@ -397,10 +397,15 @@ public class Code11 {
     // Marges: vertical 4px, horizontal 8px
     public static String generateImage(String s) {
         String resultat = "";
+
         String barcode = crearCodiDeBarres(s);
+
         String fila = "        " + barcode + "        ";
+
         int ample = fila.length();
+
         String filaBuida = crearMargesDeLaImatge(ample);
+
         resultat = crearImatge(filaBuida, fila, ample);
 
         return resultat.trim();
