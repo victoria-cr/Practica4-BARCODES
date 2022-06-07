@@ -83,6 +83,7 @@ public class Code93 {
                 return i;
             }
         }
+
         return -1;
     }
 
