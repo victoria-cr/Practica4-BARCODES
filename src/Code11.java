@@ -396,8 +396,6 @@ public class Code11 {
     // Alçada: 100px
     // Marges: vertical 4px, horizontal 8px
     public static String generateImage(String s) {
-        String resultat = "";
-
         String codiDeBarres = crearCodiDeBarres(s);
 
         String fila = "        " + codiDeBarres + "        ";
@@ -406,7 +404,7 @@ public class Code11 {
 
         String filaBuida = crearMargesDeLaImatge(ample);
 
-        resultat = crearImatge(filaBuida, fila, ample);
+        String resultat = crearImatge(filaBuida, fila, ample);
 
         return resultat.trim();
     }
