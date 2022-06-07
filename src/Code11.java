@@ -15,6 +15,7 @@ public class Code11 {
     // Codifica un String amb Code11
     static String encode(String s) {
         String resultat = "";
+
         for (int i = 0; i < s.length(); i++) {
             char caracter = s.charAt(i);
 
@@ -82,6 +83,7 @@ public class Code11 {
                 resultat += "█ ██ █ ";
             }
         }
+
         return resultat;
     }
 
@@ -117,10 +119,12 @@ public class Code11 {
 
     private static List<Integer> calcularGrossors(String s) {
         List<Integer> llistaDeGrossors = new ArrayList<>();
+
         for (int i = 0; i < s.length(); ) {
             char caracter = s.charAt(i);
             char actual = caracter;
             int contador = 0;
+
             if (i == s.length() - 1) {
                 contador = 1;
                 i++;
@@ -135,12 +139,14 @@ public class Code11 {
             }
             llistaDeGrossors.add(contador);
         }
+
         return llistaDeGrossors;
     }
 
     private static String provarGrossors(List<Integer> grossors, int major) {
         String codi = "";
         String resultat = "";
+
         for (int i = 0; i < grossors.size(); i++) {
             if (grossors.get(i) >= major) {
                 codi += "1";
@@ -170,6 +176,7 @@ public class Code11 {
         if (resultat.charAt(resultat.length() - 1) != '*') {
             return null;
         }
+
         return resultat;
     }
 
@@ -228,14 +235,13 @@ public class Code11 {
 
     // Descodifica una imatge. La imatge ha d'estar en format "ppm".
     public static String decodeImage(String str) {
-        /*Hacer un array y guardar el String que nos pasan. (Separar por líneas)
-          Obtener primera línea de pixeles.
-          LLamar a decode.*/
         String[] separarStringEnLinies = str.split("\n");
         List<String> llista = new ArrayList<>(List.of(separarStringEnLinies));
+
         if (llista.get(1).charAt(0) != '#') {
             llista.add(1, "#");
         }
+
         String[] ar = llista.toArray(new String[0]);
 
         int dimensioVertical = treureDimensioVertical(ar);
@@ -257,22 +263,26 @@ public class Code11 {
     private static int treureDimensioVertical(String[] ar) {
         String dimensioVertical = ar[2];
         String[] arDimensioVertical = dimensioVertical.split(" ");
+
         return Integer.parseInt(arDimensioVertical[1]);
     }
 
     private static int treureDimensioHoritzontal(String[] ar) {
         String dimensioHoritzontal = ar[2];
         String[] arDimensioHoritzontal = dimensioHoritzontal.split(" ");
+
         return Integer.parseInt(arDimensioHoritzontal[0]);
     }
 
     private static String escanerHoritzontal(String[] ar, int dimensioVertical) {
         String resultat = "";
         int nLinia = 0;
+
         for (int i = 0; i < dimensioVertical / 10; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor += 10) {
                 String codi = obtenirLiniaHoritzontalDePixels(ar, nLinia, limitColor);
                 resultat = decode(codi);
+
                 if (resultat != null) {
                     return resultat;
                 } else {
@@ -285,6 +295,7 @@ public class Code11 {
             }
             nLinia += 10;
         }
+
         return null;
     }
 
@@ -293,6 +304,7 @@ public class Code11 {
         int llegirLiniaN = dimensioHoritzontal * 3 * nLinea;
         int index = llegirLiniaN + 4;
         String resultat = "";
+
         for (int i = 0; i < dimensioHoritzontal; i++) {
             int a = Integer.parseInt(ar[index]);
             index++;
@@ -307,16 +319,19 @@ public class Code11 {
                 resultat += "█";
             }
         }
+
         return resultat;
     }
 
     private static String escanerVertical(String[] ar, int dimensioHoritzontal) {
         String resultat = "";
         int nLinia = 0;
+
         for (int i = 0; i < dimensioHoritzontal; i++) {
             for (int limitColor = 0; limitColor < 255; limitColor += 10) {
                 String codi = obtenirLiniaVerticalDePixels(ar, nLinia, limitColor, dimensioHoritzontal);
                 resultat = decode(codi);
+
                 if (resultat != null) {
                     return resultat;
                 } else {
@@ -329,6 +344,7 @@ public class Code11 {
             }
             nLinia += 10;
         }
+
         return null;
     }
 
@@ -337,6 +353,7 @@ public class Code11 {
         int llegirLiniaN = 3 * nLinia;
         int index = llegirLiniaN + 4;
         String resultat = "";
+
         for (int i = 0; i < dimensioVertical; i++) {
             int a = Integer.parseInt(ar[index]);
             index++;
@@ -352,22 +369,25 @@ public class Code11 {
             }
 
             index = dimensioHoritzontal * 3 + index - 3;
-
         }
+
         return resultat;
     }
 
     private static boolean esBlanc(int a, int b, int c, int limitColor) {
         int mitjana = (a + b + c) / 3;
+
         if (mitjana > limitColor) {
             return true;
         }
+
         return false;
     }
 
     private static String invertirCodi(String codi) {
         StringBuilder codiInverit = new StringBuilder(codi);
         codi = codiInverit.reverse().toString();
+
         return codi;
     }
 
@@ -382,15 +402,18 @@ public class Code11 {
         int ample = fila.length();
         String filaBuida = crearMargesDeLaImatge(ample);
         resultat = crearImatge(filaBuida, fila, ample);
+
         return resultat.trim();
     }
 
     static String crearCodiDeBarres(String s) {
         String resultat = "";
+
         for (int i = 0; i < s.length(); i++) {
             resultat += dibuixaCodiBarres(s.charAt(i));
             resultat += "   ";
         }
+
         return resultat.trim();
     }
 
@@ -398,56 +421,73 @@ public class Code11 {
         if (c == '*') {
             return "███   ██████████          ███";
         }
+
         if (c == '0') {
             return "███   ███   ██████████";
         }
+
         if (c == '1') {
             return "██████████   ███   ██████████";
         }
+
         if (c == '2') {
             return "███          ███   ██████████";
         }
+
         if (c == '3') {
             return "██████████          ███   ███";
         }
+
         if (c == '4') {
             return "███   ██████████   ██████████";
         }
+
         if (c == '5') {
             return "██████████   ██████████   ███";
         }
+
         if (c == '6') {
             return "███          ██████████   ███";
         }
+
         if (c == '7') {
             return "███   ███          ██████████";
         }
+
         if (c == '8') {
             return "██████████   ███          ███";
         }
+
         if (c == '9') {
             return "██████████   ███   ███";
         }
+
         if (c == '-') {
             return "███   ██████████   ███";
         }
+
         return null;
     }
 
     static String crearMargesDeLaImatge(int ample) {
         String resultat = "";
+
         for (int i = 0; i < ample; i++) {
             resultat += "255\n255\n255\n";
         }
+
         for (int i = 0; i < 2; i++) {
             resultat += resultat;
         }
+
         return resultat;
     }
 
     static String crearImatge(String filaBuida, String fila, int ample) {
         String resultat = "P3\n" + ample + " 108\n" + "255\n";
+
         resultat += filaBuida;
+
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < fila.length(); j++) {
                 if (fila.charAt(j) == ' ') {
@@ -457,6 +497,7 @@ public class Code11 {
                 }
             }
         }
+
         resultat += filaBuida;
 
         return resultat;
