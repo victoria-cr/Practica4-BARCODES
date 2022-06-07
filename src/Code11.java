@@ -376,43 +376,17 @@ public class Code11 {
     // Alçada: 100px
     // Marges: vertical 4px, horizontal 8px
     public static String generateImage(String s) {
-        String resultat;
-        String barcode = barcodeMatch(s);
+        String resultat = "";
+        String barcode = crearCodiDeBarres(s);
         String fila = "        " + barcode + "        ";
         int ample = fila.length();
-        String filaBuida = ferMarges(ample);
+        String filaBuida = crearMargesDeLaImatge(ample);
         System.out.println(crearImatge(filaBuida, fila, ample));
         resultat = crearImatge(filaBuida, fila, ample);
         return resultat.trim();
     }
 
-    static String crearImatge(String filaBuida, String fila, int ample) {
-        String resultat = "P3\n" + ample + " 108\n" + "255\n";
-        resultat += filaBuida;
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < fila.length(); j++) {
-                if (fila.charAt(j) == ' ') resultat += "255\n255\n255\n";
-                else resultat += "0\n0\n0\n";
-            }
-
-        }
-        resultat += filaBuida;
-
-        return resultat;
-    }
-
-    static String ferMarges(int ample) {
-        String resultat = "";
-        for (int i = 0; i < ample; i++) {
-            resultat += "255\n255\n255\n";
-        }
-        for (int i = 0; i < 2; i++) {
-            resultat += resultat;
-        }
-        return resultat;
-    }
-
-    static String barcodeMatch(String s) {
+    static String crearCodiDeBarres(String s) {
         String resultat = "";
         for (int i = 0; i < s.length(); i++) {
             resultat += dibuixaCodiBarres(s.charAt(i));
@@ -459,5 +433,31 @@ public class Code11 {
             return "███   ██████████   ███";
         }
         return null;
+    }
+
+    static String crearMargesDeLaImatge(int ample) {
+        String resultat = "";
+        for (int i = 0; i < ample; i++) {
+            resultat += "255\n255\n255\n";
+        }
+        for (int i = 0; i < 2; i++) {
+            resultat += resultat;
+        }
+        return resultat;
+    }
+
+    static String crearImatge(String filaBuida, String fila, int ample) {
+        String resultat = "P3\n" + ample + " 108\n" + "255\n";
+        resultat += filaBuida;
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < fila.length(); j++) {
+                if (fila.charAt(j) == ' ') resultat += "255\n255\n255\n";
+                else resultat += "0\n0\n0\n";
+            }
+
+        }
+        resultat += filaBuida;
+
+        return resultat;
     }
 }
