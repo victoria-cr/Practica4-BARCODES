@@ -398,9 +398,9 @@ public class Code11 {
     public static String generateImage(String s) {
         String resultat = "";
 
-        String barcode = crearCodiDeBarres(s);
+        String codiDeBarres = crearCodiDeBarres(s);
 
-        String fila = "        " + barcode + "        ";
+        String fila = "        " + codiDeBarres + "        ";
 
         int ample = fila.length();
 
