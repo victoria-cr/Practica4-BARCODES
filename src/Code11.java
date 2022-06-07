@@ -404,7 +404,7 @@ public class Code11 {
 
         String filaBuida = crearMargesDeLaImatge(ample);
 
-        String resultat = crearImatge(filaBuida, fila, ample);
+        String resultat = crearImatge(fila, ample, filaBuida);
 
         return resultat.trim();
     }
@@ -413,59 +413,59 @@ public class Code11 {
         String resultat = "";
 
         for (int i = 0; i < s.length(); i++) {
-            resultat += dibuixaCodiBarres(s.charAt(i));
+            resultat += dibuixarCodiBarres(s.charAt(i));
             resultat += "   ";
         }
 
         return resultat.trim();
     }
 
-    static String dibuixaCodiBarres(char c) {
-        if (c == '*') {
+    static String dibuixarCodiBarres(char caracter) {
+        if (caracter == '*') {
             return "███   ██████████          ███";
         }
 
-        if (c == '0') {
+        if (caracter == '0') {
             return "███   ███   ██████████";
         }
 
-        if (c == '1') {
+        if (caracter == '1') {
             return "██████████   ███   ██████████";
         }
 
-        if (c == '2') {
+        if (caracter == '2') {
             return "███          ███   ██████████";
         }
 
-        if (c == '3') {
+        if (caracter == '3') {
             return "██████████          ███   ███";
         }
 
-        if (c == '4') {
+        if (caracter == '4') {
             return "███   ██████████   ██████████";
         }
 
-        if (c == '5') {
+        if (caracter == '5') {
             return "██████████   ██████████   ███";
         }
 
-        if (c == '6') {
+        if (caracter == '6') {
             return "███          ██████████   ███";
         }
 
-        if (c == '7') {
+        if (caracter == '7') {
             return "███   ███          ██████████";
         }
 
-        if (c == '8') {
+        if (caracter == '8') {
             return "██████████   ███          ███";
         }
 
-        if (c == '9') {
+        if (caracter == '9') {
             return "██████████   ███   ███";
         }
 
-        if (c == '-') {
+        if (caracter == '-') {
             return "███   ██████████   ███";
         }
 
@@ -486,7 +486,7 @@ public class Code11 {
         return resultat;
     }
 
-    static String crearImatge(String filaBuida, String fila, int ample) {
+    static String crearImatge(String fila, int ample, String filaBuida) {
         String resultat = "P3\n" + ample + " 108\n" + "255\n";
 
         resultat += filaBuida;
